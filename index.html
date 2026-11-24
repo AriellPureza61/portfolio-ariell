@@ -159,16 +159,33 @@
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        .chapter-label {
+            opacity: 0;
+            transform: translateX(6px);
+            pointer-events: none;
+            background: rgba(5, 6, 9, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        aside[aria-label="Navegação por Capítulos"]:hover .chapter-label {
+            opacity: 0.75;
+            transform: translateX(0);
+        }
+
         .chapter-item.active .chapter-dot {
             width: 24px;
             background-color: #00f0ff;
             box-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
         }
 
-        .chapter-item.active .chapter-label {
+        aside[aria-label="Navegação por Capítulos"]:hover .chapter-item:hover .chapter-label,
+        aside[aria-label="Navegação por Capítulos"]:hover .chapter-item.active .chapter-label {
             color: #ffffff;
             opacity: 1;
-            transform: translateX(0);
+            border-color: rgba(0, 240, 255, 0.35);
         }
 
         /* Custom Scrollbar */
@@ -255,33 +272,33 @@
     </header>
 
     <!-- ==================== HUD LATERAL DE CAPÍTULOS (DESKTOP) ==================== -->
-    <aside aria-label="Navegação por Capítulos" class="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-3.5">
+    <aside aria-label="Navegação por Capítulos" class="hidden xl:flex fixed right-3.5 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-3.5">
         <a href="#cap-01" data-hud-chapter="0" class="chapter-item active group flex items-center gap-3 py-1">
-            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">01. Portfólio</span>
+            <span class="chapter-label font-mono text-[11px] text-slate-300 transition-all">01. Portfólio</span>
             <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
         </a>
         <a href="#cap-01" data-hud-chapter="1" class="chapter-item group flex items-center gap-3 py-1">
-            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">02. Estratégia</span>
+            <span class="chapter-label font-mono text-[11px] text-slate-300 transition-all">02. Estratégia</span>
             <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
         </a>
         <a href="#cap-01" data-hud-chapter="2" class="chapter-item group flex items-center gap-3 py-1">
-            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">03. A Fusão</span>
+            <span class="chapter-label font-mono text-[11px] text-slate-300 transition-all">03. A Fusão</span>
             <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
         </a>
         <a href="#cap-04" data-hud-chapter="3" class="chapter-item group flex items-center gap-3 py-1">
-            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">04. Método</span>
+            <span class="chapter-label font-mono text-[11px] text-slate-300 transition-all">04. Método</span>
             <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
         </a>
         <a href="#cap-05" data-hud-chapter="4" class="chapter-item group flex items-center gap-3 py-1">
-            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">05. Softwares</span>
+            <span class="chapter-label font-mono text-[11px] text-slate-300 transition-all">05. Softwares</span>
             <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
         </a>
         <a href="#cap-06" data-hud-chapter="5" class="chapter-item group flex items-center gap-3 py-1">
-            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">06. Stack Dupla</span>
+            <span class="chapter-label font-mono text-[11px] text-slate-300 transition-all">06. Stack Dupla</span>
             <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
         </a>
         <a href="#cap-07" data-hud-chapter="6" class="chapter-item group flex items-center gap-3 py-1">
-            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">07. Conexão</span>
+            <span class="chapter-label font-mono text-[11px] text-slate-300 transition-all">07. Conexão</span>
             <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
         </a>
     </aside>
