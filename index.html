@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ariell Pureza | Arquiteto de Sistemas &amp; Estrategista de Growth</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        void: '#050609',
+                        surface: '#0b0e15',
+                        surfaceLight: '#121724',
+                        electricCyan: '#00f0ff',
+                        electricViolet: '#7c3aed',
+                        electricIndigo: '#6366f1',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base & Reset */
+        html, body {
+            background-color: #050609;
+            color: #f8fafc;
+            overflow-x: clip; /* Permite position: sticky funcionar perfeitamente sem scroll horizontal */
+        }
+
+        /* Grade Cibernética Sutil */
+        .cyber-grid {
+            background-size: 48px 48px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism Cinematográfico */
+        .glass-panel {
+            background: rgba(11, 14, 21, 0.72);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(16, 20, 31, 0.8) 0%, rgba(9, 12, 18, 0.9) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 24px 48px -16px rgba(0, 240, 255, 0.14);
+        }
+
+        /* Gradientes de Texto */
+        .gradient-text-cyan {
+            background: linear-gradient(135deg, #00f0ff 0%, #6366f1 55%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-violet {
+            background: linear-gradient(135deg, #c084fc 0%, #6366f1 50%, #00f0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Transições de Estágios do Hero Scrollytelling */
+        .hero-stage {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(28px) scale(0.97);
+            pointer-events: none;
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-stage.is-active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .hero-stage.is-past {
+            opacity: 0;
+            transform: translateY(-32px) scale(0.97);
+            pointer-events: none;
+        }
+
+        /* Visualizador Split-Screen States */
+        .viz-state {
+            opacity: 0;
+            transform: translateY(16px) scale(0.98);
+            pointer-events: none;
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: absolute;
+            inset: 0;
+        }
+
+        .viz-state.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            position: relative;
+        }
+
+        /* Step Cards da Direita no Split-Screen */
+        .story-step {
+            opacity: 0.35;
+            transform: translateX(0);
+            transition: opacity 0.5s ease, border-color 0.5s ease, background-color 0.5s ease;
+        }
+
+        .story-step.active-step {
+            opacity: 1;
+            border-color: rgba(0, 240, 255, 0.35);
+            background: rgba(16, 21, 33, 0.85);
+        }
+
+        /* Scroll Reveal Escalonado */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-item.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* HUD Lateral de Capítulos */
+        .chapter-dot {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .chapter-item.active .chapter-dot {
+            width: 24px;
+            background-color: #00f0ff;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
+        }
+
+        .chapter-item.active .chapter-label {
+            color: #ffffff;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050609;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#00f0ff]/25 selection:text-[#00f0ff]">
+
+    <!-- ==================== 1. BARRA DE PROGRESSO SUPERIOR & NAVBAR ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#050609]/80 backdrop-blur-xl border-b border-white/[0.06]">
+        <!-- Linha de Progresso Contínua (60fps via JS) -->
+        <div class="w-full h-[2px] bg-white/5 overflow-hidden">
+            <div id="global-scroll-progress" class="h-full w-0 bg-gradient-to-r from-[#00f0ff] via-[#6366f1] to-[#7c3aed] transition-none"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Identidade com Foto de Perfil -->
+                <a href="#cap-01" class="flex items-center gap-3 group">
+                    <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#00f0ff] to-[#7c3aed] p-[1.5px] shadow-lg shadow-[#00f0ff]/20">
+                        <img src="image_ccdd1b.jpg" alt="Ariell Pureza" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" class="w-full h-full object-cover object-top rounded-[10.5px]">
+                        <div class="hidden w-full h-full rounded-[10.5px] bg-[#050609] items-center justify-center font-mono font-bold text-xs text-[#00f0ff]">
+                            AP
+                        </div>
+                        <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-[#050609]"></span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-display font-bold text-sm sm:text-base tracking-tight text-white leading-none group-hover:text-[#00f0ff] transition-colors">
+                            Ariell <span class="text-[#00f0ff]">Pureza</span>
+                        </span>
+                        <span class="font-mono text-[10px] text-slate-400 tracking-wider uppercase mt-0.5 hidden sm:inline">
+                            Systems &amp; Growth Architect
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Indicador de Capítulo Atual (Visível no Mobile & Tablet) -->
+                <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 lg:hidden">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#00f0ff] animate-pulse"></span>
+                    <span id="mobile-chapter-indicator" class="font-mono text-[11px] text-slate-200">01. O Código</span>
+                </div>
+
+                <!-- Navegação Desktop -->
+                <nav class="hidden md:flex items-center gap-7">
+                    <a href="#cap-01" class="text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-[#00f0ff] transition-colors">Narrativa</a>
+                    <a href="#cap-04" class="text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-[#00f0ff] transition-colors">Arquitetura</a>
+                    <a href="#cap-05" class="text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-[#00f0ff] transition-colors">Ecossistema</a>
+                    <a href="#cap-06" class="text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-[#00f0ff] transition-colors">Stack</a>
+                    <a href="#cap-07" class="px-4 py-2 rounded-xl text-xs font-mono font-semibold uppercase tracking-wider bg-[#00f0ff]/10 hover:bg-[#00f0ff] text-[#00f0ff] hover:text-[#050609] border border-[#00f0ff]/30 transition-all">
+                        Iniciar Projeto
+                    </a>
+                </nav>
+
+                <!-- Botão Menu Mobile -->
+                <button id="mobile-menu-toggle" aria-label="Menu" class="md:hidden p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dropdown Mobile -->
+        <div id="mobile-nav-drawer" class="hidden md:hidden bg-[#080b12]/95 backdrop-blur-2xl border-b border-white/10 px-4 pt-2 pb-5 space-y-1.5">
+            <a href="#cap-01" class="drawer-link block px-3.5 py-2.5 rounded-xl text-sm font-mono text-slate-300 hover:bg-white/5 hover:text-[#00f0ff]">01–03. A Tese (Hero)</a>
+            <a href="#cap-04" class="drawer-link block px-3.5 py-2.5 rounded-xl text-sm font-mono text-slate-300 hover:bg-white/5 hover:text-[#00f0ff]">04. Arquitetura do Crescimento</a>
+            <a href="#cap-05" class="drawer-link block px-3.5 py-2.5 rounded-xl text-sm font-mono text-slate-300 hover:bg-white/5 hover:text-[#00f0ff]">05. Ecossistema em Produção</a>
+            <a href="#cap-06" class="drawer-link block px-3.5 py-2.5 rounded-xl text-sm font-mono text-slate-300 hover:bg-white/5 hover:text-[#00f0ff]">06. Matriz de Stack Dupla</a>
+            <a href="#cap-07" class="drawer-link block px-3.5 py-3 rounded-xl text-sm font-mono font-semibold text-center bg-gradient-to-r from-[#00f0ff] to-[#7c3aed] text-[#050609] mt-2">07. Conexão &amp; Contato</a>
+        </div>
+    </header>
+
+    <!-- ==================== HUD LATERAL DE CAPÍTULOS (DESKTOP) ==================== -->
+    <aside aria-label="Navegação por Capítulos" class="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-3.5">
+        <a href="#cap-01" data-hud-chapter="0" class="chapter-item active group flex items-center gap-3 py-1">
+            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">01. O Código</span>
+            <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
+        </a>
+        <a href="#cap-01" data-hud-chapter="1" class="chapter-item group flex items-center gap-3 py-1">
+            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">02. A Atenção</span>
+            <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
+        </a>
+        <a href="#cap-01" data-hud-chapter="2" class="chapter-item group flex items-center gap-3 py-1">
+            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">03. A Fusão</span>
+            <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
+        </a>
+        <a href="#cap-04" data-hud-chapter="3" class="chapter-item group flex items-center gap-3 py-1">
+            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">04. Arquitetura</span>
+            <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
+        </a>
+        <a href="#cap-05" data-hud-chapter="4" class="chapter-item group flex items-center gap-3 py-1">
+            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">05. Ecossistema</span>
+            <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
+        </a>
+        <a href="#cap-06" data-hud-chapter="5" class="chapter-item group flex items-center gap-3 py-1">
+            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">06. Stack Dupla</span>
+            <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
+        </a>
+        <a href="#cap-07" data-hud-chapter="6" class="chapter-item group flex items-center gap-3 py-1">
+            <span class="chapter-label font-mono text-[11px] text-slate-400 opacity-60 group-hover:opacity-100 transition-all">07. Conexão</span>
+            <span class="chapter-dot w-2.5 h-1.5 rounded-full bg-white/25 group-hover:bg-[#00f0ff]/70"></span>
+        </a>
+    </aside>
+
+    <!-- ==================== 2. HERO SCROLLYTELLING (PINNED STAGE 260VH) ==================== -->
+    <section id="cap-01" class="relative h-[260vh] w-full">
+        <!-- Palco Fixo na Viewport -->
+        <div id="hero-sticky-viewport" class="sticky top-0 h-screen w-full overflow-hidden cyber-grid flex items-center justify-center">
+            
+            <!-- Canvas de Partículas Interativas & Fluxo de Dados -->
+            <canvas id="scrolly-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-75"></canvas>
+
+            <!-- Orbes de Iluminação Dinâmica Guiados pelo Scroll -->
+            <div id="hero-orb-cyan" class="absolute w-[320px] h-[320px] sm:w-[540px] sm:h-[540px] rounded-full bg-[#00f0ff]/15 blur-[130px] pointer-events-none transition-transform duration-150 ease-out" style="top: 15%; left: 10%;"></div>
+            <div id="hero-orb-violet" class="absolute w-[320px] h-[320px] sm:w-[560px] sm:h-[560px] rounded-full bg-[#7c3aed]/20 blur-[140px] pointer-events-none transition-transform duration-150 ease-out" style="bottom: 10%; right: 10%;"></div>
+
+            <!-- Container Central dos 3 Estágios Narrativos -->
+            <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-[78vh] flex items-center justify-center">
+
+                <!-- ESTÁGIO 1 (0% - 33%): 01. O CÓDIGO -->
+                <div id="hero-stage-0" class="hero-stage is-active text-center max-w-4xl mx-auto px-2">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00f0ff]/10 border border-[#00f0ff]/25 font-mono text-xs text-[#00f0ff] mb-6">
+                        <span>CAPÍTULO 01 // ENGENHARIA &amp; INFRAESTRUTURA</span>
+                    </div>
+                    <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
+                        Código sem distribuição é <span class="text-slate-500 line-through decoration-[#00f0ff]/60">invisível</span>.
+                    </h1>
+                    <p class="text-base sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+                        Sistemas impecáveis, bancos de dados escaláveis e arquiteturas em nuvem morrem no silêncio quando não existe um motor previsível de aquisição de clientes.
+                    </p>
+
+                    <!-- Terminal Visual Flutuante -->
+                    <div class="w-full max-w-xl mx-auto glass-panel rounded-2xl p-4 sm:p-5 text-left font-mono text-xs sm:text-sm shadow-2xl border border-[#00f0ff]/20">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></span>
+                            </div>
+                            <span class="text-[11px] text-slate-500">architecture.core.ts</span>
+                        </div>
+                        <div class="space-y-1.5 text-slate-300">
+                            <div><span class="text-[#7c3aed]">const</span> <span class="text-[#00f0ff]">system</span> = <span class="text-emerald-400">deploySaaS</span>({ stack: <span class="text-amber-300">'Next.js + Node + AI'</span> });</div>
+                            <div><span class="text-[#7c3aed]">if</span> (!system.<span class="text-[#00f0ff]">acquisitionEngine</span>) {</div>
+                            <div class="pl-4 text-rose-400">throw new Error('Zero_Traffic_Bottleneck: Produto sem escala');</div>
+                            <div>}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESTÁGIO 2 (34% - 66%): 02. A ATENÇÃO -->
+                <div id="hero-stage-1" class="hero-stage text-center max-w-4xl mx-auto px-2">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#7c3aed]/15 border border-[#7c3aed]/35 font-mono text-xs text-purple-300 mb-6">
+                        <span>CAPÍTULO 02 // TRÁFEGO &amp; AQUISIÇÃO</span>
+                    </div>
+                    <h2 class="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
+                        Tráfego sem sistema é <span class="gradient-text-violet">desperdício</span>.
+                    </h2>
+                    <p class="text-base sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+                        Anúncios de alta conversão geram atenção imediata, mas sem automação com IA e CRM estruturado, leads esfriam em minutos e o ROI escapa pelo ralo.
+                    </p>
+
+                    <!-- Painel de Métricas & Funil Flutuante -->
+                    <div class="w-full max-w-2xl mx-auto grid grid-cols-3 gap-3 sm:gap-4">
+                        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-[#7c3aed]/30">
+                            <div class="font-mono text-[11px] text-purple-300 uppercase mb-1">CTR Criativo 9:16</div>
+                            <div class="font-display text-2xl sm:text-3xl font-extrabold text-white">3.84%</div>
+                            <div class="text-[11px] text-emerald-400 font-mono mt-1 flex items-center justify-center gap-1">
+                                <i data-lucide="trending-up" class="w-3 h-3"></i> +142% retenção
+                            </div>
+                        </div>
+                        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-rose-500/30">
+                            <div class="font-mono text-[11px] text-rose-300 uppercase mb-1">Gargalo Manual</div>
+                            <div class="font-display text-2xl sm:text-3xl font-extrabold text-rose-400">42 min</div>
+                            <div class="text-[11px] text-slate-400 font-mono mt-1">Tempo médio sem IA</div>
+                        </div>
+                        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-[#00f0ff]/30">
+                            <div class="font-mono text-[11px] text-[#00f0ff] uppercase mb-1">Com Agente IA</div>
+                            <div class="font-display text-2xl sm:text-3xl font-extrabold text-[#00f0ff]">&lt; 4 seg</div>
+                            <div class="text-[11px] text-emerald-400 font-mono mt-1">Qualificação 24/7</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESTÁGIO 3 (67% - 100%): 03. A FUSÃO (MARCA ARIELL PUREZA) -->
+                <div id="hero-stage-2" class="hero-stage max-w-6xl mx-auto px-2">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-center w-full">
+                        
+                        <!-- Coluna Esquerda: Retrato Editorial Tech-Executive -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative group w-44 sm:w-56 md:w-64 lg:w-full max-w-[320px]">
+                                <!-- Glow Cibernético de Fundo -->
+                                <div class="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-[#00f0ff]/35 via-[#6366f1]/25 to-[#7c3aed]/35 blur-xl opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                
+                                <!-- Moldura Glassmorphism -->
+                                <div class="relative rounded-3xl p-2 glass-panel border border-[#00f0ff]/30 shadow-2xl overflow-hidden">
+                                    <div class="relative aspect-[4/4.3] rounded-2xl overflow-hidden bg-[#0b0e15]">
+                                        <img src="image_ccdd1b.jpg" alt="Ariell Pureza — Arquiteto de Sistemas & Growth" onerror="this.onerror=null; this.src='https://placehold.co/600x650/0b0e15/00f0ff?text=Ariell+Pureza';" class="w-full h-full object-cover object-top scale-[1.02] group-hover:scale-105 transition-transform duration-700 ease-out">
+                                        <!-- Vinheta Sutil Inferior para Leitura da Badge -->
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#050609] via-transparent to-transparent opacity-85"></div>
+                                        
+                                        <!-- Badge Flutuante de Status -->
+                                        <div class="absolute bottom-3 left-3 right-3 px-3 py-2 rounded-xl bg-[#050609]/85 backdrop-blur-md border border-white/10 flex items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                                <span class="font-mono text-[10px] sm:text-[11px] text-slate-200 font-medium">DISPONÍVEL P/ PROJETOS</span>
+                                            </div>
+                                            <span class="font-mono text-[10px] text-[#00f0ff]">BSB • BR</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Coluna Direita: Tese & Conversão -->
+                        <div class="lg:col-span-7 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-[#00f0ff]/30 font-mono text-[11px] sm:text-xs text-[#00f0ff] mb-4 shadow-lg shadow-[#00f0ff]/10">
+                                <span class="w-2 h-2 rounded-full bg-[#00f0ff] animate-ping"></span>
+                                <span>ARIELL PUREZA • ARQUITETO DE SISTEMAS &amp; GROWTH</span>
+                            </div>
+
+                            <h2 class="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-[1.1] mb-4">
+                                Onde a <span class="gradient-text-cyan">Engenharia de Software</span> encontra o <span class="gradient-text-violet">Marketing de Performance</span>.
+                            </h2>
+
+                            <p class="text-xs sm:text-base md:text-lg text-slate-300 leading-relaxed mb-6">
+                                Projeto e construo o ecossistema completo: do criativo em Motion Design e campanhas Meta Ads até agentes autônomos de IA no WhatsApp, CRMs proprietários e plataformas SaaS em produção.
+                            </p>
+
+                            <!-- CTAs Principais -->
+                            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mb-6">
+                                <a href="#cap-05" class="w-full sm:w-auto px-7 py-3.5 rounded-2xl font-display font-bold text-xs sm:text-sm text-[#050609] bg-gradient-to-r from-[#00f0ff] to-[#6366f1] hover:brightness-110 shadow-xl shadow-[#00f0ff]/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
+                                    <span>Explorar Ecossistema</span>
+                                    <i data-lucide="layers" class="w-4 h-4"></i>
+                                </a>
+                                <a href="#cap-07" class="w-full sm:w-auto px-7 py-3.5 rounded-2xl font-display font-bold text-xs sm:text-sm text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/15 hover:border-[#00f0ff]/50 flex items-center justify-center gap-2 transition-all">
+                                    <span>Iniciar Projeto</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-[#00f0ff]"></i>
+                                </a>
+                            </div>
+
+                            <!-- KPIs de Autoridade -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                                <div class="glass-panel rounded-xl py-2.5 px-2.5 border border-white/10 text-center lg:text-left">
+                                    <div class="font-display font-extrabold text-sm sm:text-base text-white">End-to-End</div>
+                                    <div class="font-mono text-[10px] text-slate-400">Anúncio ao Banco</div>
+                                </div>
+                                <div class="glass-panel rounded-xl py-2.5 px-2.5 border border-white/10 text-center lg:text-left">
+                                    <div class="font-display font-extrabold text-sm sm:text-base text-[#00f0ff]">AI Agents</div>
+                                    <div class="font-mono text-[10px] text-slate-400">SDR Autônomo</div>
+                                </div>
+                                <div class="glass-panel rounded-xl py-2.5 px-2.5 border border-white/10 text-center lg:text-left">
+                                    <div class="font-display font-extrabold text-sm sm:text-base text-purple-400">SaaS &amp; ERP</div>
+                                    <div class="font-mono text-[10px] text-slate-400">Multi-Tenant</div>
+                                </div>
+                                <div class="glass-panel rounded-xl py-2.5 px-2.5 border border-white/10 text-center lg:text-left">
+                                    <div class="font-display font-extrabold text-sm sm:text-base text-emerald-400">ROI Driven</div>
+                                    <div class="font-mono text-[10px] text-slate-400">Meta Ads + Copy</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Barra de Progresso Interna do Ato I + Indicador de Scroll -->
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5 z-20">
+                <div class="flex items-center gap-2">
+                    <span id="hero-pill-0" class="h-1.5 w-8 rounded-full bg-[#00f0ff] transition-all duration-300"></span>
+                    <span id="hero-pill-1" class="h-1.5 w-3 rounded-full bg-white/20 transition-all duration-300"></span>
+                    <span id="hero-pill-2" class="h-1.5 w-3 rounded-full bg-white/20 transition-all duration-300"></span>
+                </div>
+                <span id="hero-scroll-hint" class="font-mono text-[10px] uppercase tracking-widest text-slate-400 flex items-center gap-1.5">
+                    Role para avançar a narrativa <i data-lucide="chevrons-down" class="w-3.5 h-3.5 text-[#00f0ff] animate-bounce"></i>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. STICKY SPLIT-SCREEN: A ARQUITETURA DO CRESCIMENTO ==================== -->
+    <section id="cap-04" class="relative py-24 sm:py-32 border-t border-white/[0.07] bg-[#07090f]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Cabeçalho da Seção -->
+            <div class="max-w-3xl mb-16 reveal-item">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#00f0ff]/10 border border-[#00f0ff]/20 font-mono text-xs text-[#00f0ff] uppercase tracking-wider mb-4">
+                    CAPÍTULO 04 // ENGENHARIA DE RECEITA
+                </div>
+                <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-4">
+                    A Arquitetura do <span class="gradient-text-cyan">Crescimento Previsível</span>
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg leading-relaxed">
+                    Acompanhe como cada camada tecnológica e estratégica se conecta em tempo real — eliminando vazamentos entre o clique no anúncio e o fechamento no sistema.
+                </p>
+            </div>
+
+            <!-- Layout Split-Screen -->
+            <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                
+                <!-- COLUNA ESQUERDA: VISUALIZADOR VIVO (STICKY) -->
+                <div class="lg:col-span-6 lg:sticky lg:top-28">
+                    <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 shadow-2xl relative overflow-hidden min-h-[380px] sm:min-h-[430px] flex flex-col justify-between">
+                        <!-- Glow reativo do visualizador -->
+                        <div id="viz-glow" class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#7c3aed]/20 blur-[90px] transition-colors duration-700 pointer-events-none"></div>
+
+                        <!-- Barra Superior Estilo Console -->
+                        <div class="flex items-center justify-between pb-4 border-b border-white/10 relative z-10">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#00f0ff] animate-pulse"></span>
+                                <span id="viz-status-label" class="font-mono text-xs text-slate-300">CAMADA_01 // AQUISIÇÃO_DE_TRÁFEGO</span>
+                            </div>
+                            <span id="viz-step-counter" class="font-mono text-xs px-2.5 py-0.5 rounded-md bg-white/5 text-[#00f0ff] border border-[#00f0ff]/20">
+                                01 / 03
+                            </span>
+                        </div>
+
+                        <!-- Conteúdo Dinâmico dos 3 Estados -->
+                        <div class="relative my-6 flex-1 flex items-center">
+                            
+                            <!-- ESTADO 1: CAPTAÇÃO & CRIATIVOS -->
+                            <div id="viz-state-0" class="viz-state active w-full space-y-4">
+                                <div class="flex items-center justify-between p-4 rounded-2xl bg-[#7c3aed]/15 border border-[#7c3aed]/35">
+                                    <div class="flex items-center gap-3.5">
+                                        <div class="w-11 h-11 rounded-xl bg-[#7c3aed]/30 text-purple-300 flex items-center justify-center">
+                                            <i data-lucide="clapperboard" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-display font-bold text-white text-sm sm:text-base">Motion Design 9:16 + Hook Visual</div>
+                                            <div class="font-mono text-xs text-purple-300">Retenção nos primeiros 3 segundos</div>
+                                        </div>
+                                    </div>
+                                    <span class="font-mono text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg">ATIVO</span>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                                        <div class="font-mono text-[11px] text-slate-400">OBJETIVO META ADS</div>
+                                        <div class="font-display font-bold text-white text-base mt-1">Click-to-WhatsApp</div>
+                                        <div class="text-xs text-purple-300 mt-1">Otimizado para conversa qualificada</div>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                                        <div class="font-mono text-[11px] text-slate-400">COPYWRITING</div>
+                                        <div class="font-display font-bold text-white text-base mt-1">Dor → Mecanismo</div>
+                                        <div class="text-xs text-emerald-400 mt-1">Filtro de curiosos no criativo</div>
+                                    </div>
+                                </div>
+
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 font-mono text-xs text-slate-300 flex items-center justify-between">
+                                    <span>&gt; Webhook_Lead_Capture:</span>
+                                    <span class="text-[#00f0ff]">Disparando para Agente IA...</span>
+                                </div>
+                            </div>
+
+                            <!-- ESTADO 2: QUALIFICAÇÃO AUTÔNOMA COM IA -->
+                            <div id="viz-state-1" class="viz-state w-full space-y-4">
+                                <div class="flex items-center justify-between p-4 rounded-2xl bg-[#00f0ff]/10 border border-[#00f0ff]/35">
+                                    <div class="flex items-center gap-3.5">
+                                        <div class="w-11 h-11 rounded-xl bg-[#00f0ff]/20 text-[#00f0ff] flex items-center justify-center">
+                                            <i data-lucide="bot" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-display font-bold text-white text-sm sm:text-base">Eva — AI SDR no WhatsApp</div>
+                                            <div class="font-mono text-xs text-[#00f0ff]">Gemini API + Node.js + Baileys</div>
+                                        </div>
+                                    </div>
+                                    <span class="font-mono text-xs font-bold text-[#00f0ff] bg-[#00f0ff]/15 px-2.5 py-1 rounded-lg">24/7 ONLINE</span>
+                                </div>
+
+                                <!-- Simulação de Fluxo Conversacional -->
+                                <div class="space-y-2.5 p-4 rounded-2xl bg-black/40 border border-white/10 font-sans text-xs sm:text-sm">
+                                    <div class="flex justify-start">
+                                        <div class="bg-white/10 text-slate-200 px-3.5 py-2 rounded-2xl rounded-tl-sm max-w-[85%]">
+                                            Olá! Vi o anúncio e quero saber como funciona para minha empresa.
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <div class="bg-[#00f0ff]/20 border border-[#00f0ff]/30 text-white px-3.5 py-2 rounded-2xl rounded-tr-sm max-w-[85%]">
+                                            <span class="font-mono text-[10px] text-[#00f0ff] block mb-0.5">EVA AI • 2.4s</span>
+                                            Perfeito! Para eu te passar o cenário exato, qual o tamanho da sua operação atual?
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between text-xs font-mono text-emerald-400 px-2">
+                                    <span>✓ Score de Qualificação: 94/100</span>
+                                    <span>✓ Sincronizado no Firestore</span>
+                                </div>
+                            </div>
+
+                            <!-- ESTADO 3: GESTÃO, CRM & OPERAÇÃO SAAS -->
+                            <div id="viz-state-2" class="viz-state w-full space-y-4">
+                                <div class="flex items-center justify-between p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/35">
+                                    <div class="flex items-center gap-3.5">
+                                        <div class="w-11 h-11 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                                            <i data-lucide="database" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-display font-bold text-white text-sm sm:text-base">Claro Órion &amp; Ecossistema B. Flow</div>
+                                            <div class="font-mono text-xs text-emerald-300">CRM, Propostas, PDV &amp; Recorrência</div>
+                                        </div>
+                                    </div>
+                                    <span class="font-mono text-xs font-bold text-emerald-400 bg-emerald-500/15 px-2.5 py-1 rounded-lg">RECEITA</span>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-2.5">
+                                    <div class="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-center">
+                                        <div class="font-mono text-[10px] text-slate-400">PROPOSTAS</div>
+                                        <div class="font-display font-bold text-white text-base mt-1">-75% Tempo</div>
+                                    </div>
+                                    <div class="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-center">
+                                        <div class="font-mono text-[10px] text-slate-400">OPERAÇÃO</div>
+                                        <div class="font-display font-bold text-[#00f0ff] text-base mt-1">Multi-Tenant</div>
+                                    </div>
+                                    <div class="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-center">
+                                        <div class="font-mono text-[10px] text-slate-400">CONTROLE</div>
+                                        <div class="font-display font-bold text-emerald-400 text-base mt-1">100% Cloud</div>
+                                    </div>
+                                </div>
+
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-emerald-500/20 font-mono text-xs text-emerald-300 flex items-center justify-between">
+                                    <span>&gt; Ciclo_Completo:</span>
+                                    <span>Anúncio → IA → CRM → Receita Recorrente</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Barra de Progresso dos Passos -->
+                        <div class="grid grid-cols-3 gap-2 pt-3 border-t border-white/10 relative z-10">
+                            <button type="button" data-viz-trigger="0" class="viz-bar h-1.5 rounded-full bg-[#00f0ff] transition-all cursor-pointer" aria-label="Ver Passo 1"></button>
+                            <button type="button" data-viz-trigger="1" class="viz-bar h-1.5 rounded-full bg-white/15 transition-all cursor-pointer" aria-label="Ver Passo 2"></button>
+                            <button type="button" data-viz-trigger="2" class="viz-bar h-1.5 rounded-full bg-white/15 transition-all cursor-pointer" aria-label="Ver Passo 3"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUNA DIREITA: PASSOS NARRATIVOS ROLÁVEIS -->
+                <div class="lg:col-span-6 space-y-8 sm:space-y-16 lg:py-8">
+                    
+                    <!-- Passo 1 -->
+                    <article data-story-step="0" class="story-step active-step p-6 sm:p-8 rounded-3xl border border-white/10 bg-[#0b0e15]/60">
+                        <div class="font-mono text-xs text-[#7c3aed] uppercase tracking-wider mb-2">PASSO 01 // TOPO DE FUNIL &amp; ATENÇÃO</div>
+                        <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
+                            Captação &amp; Criativos Orientados a Dados
+                        </h3>
+                        <p class="text-slate-300 text-base leading-relaxed mb-5">
+                            Tudo começa na engenharia da atenção. Estruturo campanhas de <strong>Meta Ads (Click-to-WhatsApp)</strong> combinadas com vídeos verticais em <strong>Motion Design (9:16)</strong> e roteiros de alta retenção.
+                        </p>
+                        <ul class="space-y-2.5 text-sm text-slate-400">
+                            <li class="flex items-center gap-2.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-[#7c3aed] shrink-0"></i>
+                                <span>Ganchos visuais projetados para interromper o scroll nos primeiros 3 segundos.</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-[#7c3aed] shrink-0"></i>
+                                <span>Copywriting persuasivo que filtra curiosos e atrai decisores prontos para comprar.</span>
+                            </li>
+                        </ul>
+                    </article>
+
+                    <!-- Passo 2 -->
+                    <article data-story-step="1" class="story-step p-6 sm:p-8 rounded-3xl border border-white/10 bg-[#0b0e15]/60">
+                        <div class="font-mono text-xs text-[#00f0ff] uppercase tracking-wider mb-2">PASSO 02 // VELOCIDADE &amp; INTELIGÊNCIA ARTIFICIAL</div>
+                        <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
+                            Qualificação Autônoma com IA no WhatsApp
+                        </h3>
+                        <p class="text-slate-300 text-base leading-relaxed mb-5">
+                            Quando o lead clica no anúncio, entra em ação a <strong>Eva AI SDR</strong>. Construída com Node.js, Baileys, Gemini API e Firestore, ela atende em segundos, entende o contexto e conduz a pré-venda sem falhas.
+                        </p>
+                        <ul class="space-y-2.5 text-sm text-slate-400">
+                            <li class="flex items-center gap-2.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-[#00f0ff] shrink-0"></i>
+                                <span>Atendimento humanizado 24/7 com memória de contexto e quebra de objeções.</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-[#00f0ff] shrink-0"></i>
+                                <span>Triagem automática: o time comercial recebe apenas oportunidades qualificadas.</span>
+                            </li>
+                        </ul>
+                    </article>
+
+                    <!-- Passo 3 -->
+                    <article data-story-step="2" class="story-step p-6 sm:p-8 rounded-3xl border border-white/10 bg-[#0b0e15]/60">
+                        <div class="font-mono text-xs text-emerald-400 uppercase tracking-wider mb-2">PASSO 03 // INFRAESTRUTURA &amp; ESCALA SAAS</div>
+                        <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
+                            Gestão, CRM &amp; Operação SaaS
+                        </h3>
+                        <p class="text-slate-300 text-base leading-relaxed mb-5">
+                            O fechamento e a retenção acontecem dentro de sistemas robustos criados sob medida: plataformas como <strong>Claro Órion</strong>, <strong>B. Flow</strong> e <strong>B. Planner</strong> transformam dados dispersos em operação escalável.
+                        </p>
+                        <ul class="space-y-2.5 text-sm text-slate-400">
+                            <li class="flex items-center gap-2.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                                <span>Geração instantânea de propostas comerciais, funis Kanban e controle financeiro.</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                                <span>Arquitetura multi-tenant preparada para escalar clientes e receita recorrente.</span>
+                            </li>
+                        </ul>
+                    </article>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. ECOSSISTEMA EM PRODUÇÃO (PROJETOS + MODAIS) ==================== -->
+    <section id="cap-05" class="relative py-24 sm:py-32 border-t border-white/[0.07] cyber-grid">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Cabeçalho + Filtros -->
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14 reveal-item">
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#7c3aed]/15 border border-[#7c3aed]/30 font-mono text-xs text-purple-300 uppercase tracking-wider mb-4">
+                        CAPÍTULO 05 // PROJETOS EM PRODUÇÃO
+                    </div>
+                    <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-3">
+                        Ecossistema de <span class="gradient-text-cyan">Sistemas &amp; Growth</span>
+                    </h2>
+                    <p class="text-slate-400 text-base sm:text-lg">
+                        Selecione qualquer projeto para inspecionar o desafio de negócio, a arquitetura técnica e os resultados alcançados.
+                    </p>
+                </div>
+
+                <!-- Filtros por Categoria -->
+                <div class="flex flex-wrap gap-2.5" id="portfolio-filters">
+                    <button type="button" data-filter="all" class="filter-pill active px-4 py-2.5 rounded-xl font-mono text-xs font-semibold bg-gradient-to-r from-[#00f0ff] to-[#6366f1] text-[#050609] shadow-lg shadow-[#00f0ff]/20 transition-all">
+                        Todos (05)
+                    </button>
+                    <button type="button" data-filter="engenharia" class="filter-pill px-4 py-2.5 rounded-xl font-mono text-xs font-medium bg-white/[0.04] text-slate-300 hover:bg-white/10 border border-white/10 transition-all">
+                        Engenharia &amp; IA
+                    </button>
+                    <button type="button" data-filter="saas" class="filter-pill px-4 py-2.5 rounded-xl font-mono text-xs font-medium bg-white/[0.04] text-slate-300 hover:bg-white/10 border border-white/10 transition-all">
+                        SaaS &amp; Produtos
+                    </button>
+                    <button type="button" data-filter="marketing" class="filter-pill px-4 py-2.5 rounded-xl font-mono text-xs font-medium bg-white/[0.04] text-slate-300 hover:bg-white/10 border border-white/10 transition-all">
+                        Marketing &amp; Growth
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid de Projetos -->
+            <div id="projects-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+                <!-- Cards renderizados dinamicamente via JS -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== 5. MATRIZ DE STACK DUPLA (SCROLL REVEAL ESCALONADO) ==================== -->
+    <section id="cap-06" class="relative py-24 sm:py-32 border-t border-white/[0.07] bg-[#07090f]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-item">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#00f0ff]/10 border border-[#00f0ff]/20 font-mono text-xs text-[#00f0ff] uppercase tracking-wider mb-4">
+                    CAPÍTULO 06 // ARSENAL INTEGRADO
+                </div>
+                <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mb-4">
+                    Matriz de <span class="gradient-text-cyan">Stack Dupla</span>
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg">
+                    A sinergia exata entre infraestrutura de software moderna e ferramentas de aquisição de alta performance.
+                </p>
+            </div>
+
+            <!-- Grid Comparativo Conectado -->
+            <div class="grid lg:grid-cols-2 gap-8 relative">
+                
+                <!-- COLUNA 1: ENGENHARIA, CLOUD & IA -->
+                <div class="glass-panel rounded-3xl p-6 sm:p-9 border-t-2 border-t-[#00f0ff] reveal-item">
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-[#00f0ff]/15 text-[#00f0ff] flex items-center justify-center border border-[#00f0ff]/30">
+                                <i data-lucide="terminal" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-xl sm:text-2xl font-bold text-white">Engenharia, Cloud &amp; IA</h3>
+                                <p class="font-mono text-xs text-[#00f0ff]">Arquitetura, Backend, Frontend &amp; LLMs</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-3.5">
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#00f0ff]/40 transition-colors">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="atom" class="w-4 h-4 text-[#00f0ff]"></i> React &amp; Next.js
+                            </div>
+                            <p class="text-xs text-slate-400">Interfaces reativas, SSR e PWAs mobile-first ultrarrápidos.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#00f0ff]/40 transition-colors">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="server" class="w-4 h-4 text-[#00f0ff]"></i> Node.js &amp; TypeScript
+                            </div>
+                            <p class="text-xs text-slate-400">APIs resilientes, webhooks em tempo real e código tipado.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#00f0ff]/40 transition-colors">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-[#00f0ff]"></i> Gemini API &amp; Agentes IA
+                            </div>
+                            <p class="text-xs text-slate-400">SDRs autônomos, RAG, classificação e automação inteligente.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#00f0ff]/40 transition-colors">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="database" class="w-4 h-4 text-[#00f0ff]"></i> Firebase &amp; Supabase
+                            </div>
+                            <p class="text-xs text-slate-400">Firestore, PostgreSQL, Auth e arquitetura multi-tenant.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#00f0ff]/40 transition-colors sm:col-span-2">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="cloud" class="w-4 h-4 text-[#00f0ff]"></i> Vercel, Baileys &amp; Integrações API
+                            </div>
+                            <p class="text-xs text-slate-400">Deploy contínuo, integração direta com WhatsApp, ERPs fiscais e gateways de pagamento.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUNA 2: GROWTH, TRÁFEGO & CRIATIVOS -->
+                <div class="glass-panel rounded-3xl p-6 sm:p-9 border-t-2 border-t-[#7c3aed] reveal-item" style="transition-delay: 120ms;">
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-[#7c3aed]/20 text-purple-300 flex items-center justify-center border border-[#7c3aed]/35">
+                                <i data-lucide="trending-up" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-xl sm:text-2xl font-bold text-white">Growth, Tráfego &amp; Criativos</h3>
+                                <p class="font-mono text-xs text-purple-300">Aquisição, Persuasão, Funis &amp; Motion</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-3.5">
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#7c3aed]/40 transition-colors">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="target" class="w-4 h-4 text-purple-400"></i> Meta Ads Performance
+                            </div>
+                            <p class="text-xs text-slate-400">Campanhas Click-to-WhatsApp, estrutura de testes e escala de ROI.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#7c3aed]/40 transition-colors">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="clapperboard" class="w-4 h-4 text-purple-400"></i> Motion Design 9:16
+                            </div>
+                            <p class="text-xs text-slate-400">Criativos dinâmicos verticais e vídeos com avatares de IA de alta retenção.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#7c3aed]/40 transition-colors">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="pen-tool" class="w-4 h-4 text-purple-400"></i> Copywriting &amp; Roteiros
+                            </div>
+                            <p class="text-xs text-slate-400">Hooks magnéticos, engenharia de oferta e scripts comerciais que convertem.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#7c3aed]/40 transition-colors">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="filter" class="w-4 h-4 text-purple-400"></i> Arquitetura de Funis
+                            </div>
+                            <p class="text-xs text-slate-400">Jornada completa do primeiro impacto até o follow-up automatizado.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#7c3aed]/40 transition-colors sm:col-span-2">
+                            <div class="flex items-center gap-2.5 text-white font-semibold text-sm mb-1">
+                                <i data-lucide="bar-chart-2" class="w-4 h-4 text-purple-400"></i> CRO, Tracking &amp; BI Comercial
+                            </div>
+                            <p class="text-xs text-slate-400">Otimização de taxa de conversão em landing pages, métricas de CAC/LTV e atribuição real de vendas.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. ENCERRAMENTO & CONTATO (CTA FINAL) ==================== -->
+    <section id="cap-07" class="relative py-24 sm:py-32 border-t border-white/[0.07] overflow-hidden">
+        <!-- Iluminação de Encerramento -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[340px] bg-gradient-to-t from-[#00f0ff]/15 via-[#7c3aed]/15 to-transparent rounded-full blur-[130px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="glass-panel rounded-3xl p-6 sm:p-10 lg:p-14 border border-white/15 shadow-2xl">
+                <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+                    
+                    <!-- Coluna Esquerda: Posicionamento & Links Diretos -->
+                    <div class="lg:col-span-5 space-y-6 reveal-item">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#00f0ff]/10 border border-[#00f0ff]/25 font-mono text-xs text-[#00f0ff] uppercase">
+                            CAPÍTULO 07 // CONEXÃO DIRETA
+                        </div>
+                        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+                            Vamos construir seu próximo <span class="gradient-text-cyan">ativo digital</span>.
+                        </h2>
+                        <p class="text-slate-300 text-base leading-relaxed">
+                            Escolha o objetivo abaixo ou fale diretamente comigo. Seja para lançar um SaaS, automatizar seu comercial com IA ou escalar suas campanhas de aquisição, desenhamos a arquitetura ideal.
+                        </p>
+
+                        <!-- Botões Diretos -->
+                        <div class="space-y-3 pt-2">
+                            <a href="https://wa.me/5561985327283?text=Ol%C3%A1%20Ariell%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="message-circle" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+                                    <div class="flex flex-col">
+                                        <span class="font-display font-bold text-sm sm:text-base">WhatsApp Direto</span>
+                                        <span class="font-mono text-xs text-emerald-400/90">(61) 98532-7283</span>
+                                    </div>
+                                </div>
+                                <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                            </a>
+
+                            <!-- Card de E-mail com Link Direto e Cópia Rápida -->
+                            <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#00f0ff]/35 transition-all gap-2">
+                                <a href="mailto:Ariellpureza@gmail.com?subject=Contato%20via%20Portf%C3%B3lio%20-%20Novo%20Projeto" class="flex items-center gap-3 min-w-0 flex-1 group">
+                                    <i data-lucide="mail" class="w-5 h-5 text-[#00f0ff] shrink-0"></i>
+                                    <div class="flex flex-col min-w-0">
+                                        <span class="font-mono text-[10px] text-slate-400 uppercase">E-mail Profissional</span>
+                                        <span class="font-mono text-xs sm:text-sm text-slate-200 group-hover:text-[#00f0ff] truncate transition-colors">Ariellpureza@gmail.com</span>
+                                    </div>
+                                </a>
+                                <button type="button" id="copy-email-btn" data-email="Ariellpureza@gmail.com" class="px-3 py-2 rounded-xl bg-white/[0.06] hover:bg-[#00f0ff]/20 border border-white/10 hover:border-[#00f0ff]/40 text-slate-300 hover:text-[#00f0ff] font-mono text-[11px] flex items-center gap-1.5 shrink-0 transition-all cursor-pointer" title="Copiar e-mail">
+                                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                    <span id="copy-email-label">Copiar</span>
+                                </button>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <a href="https://github.com/AriellPureza61" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2.5 p-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-white/25 text-slate-200 transition-all">
+                                    <i data-lucide="github" class="w-5 h-5"></i>
+                                    <span class="font-mono text-xs sm:text-sm font-medium">GitHub</span>
+                                </a>
+                                <a href="https://www.linkedin.com/in/ariell-pureza-230465194/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2.5 p-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-[#00f0ff]/40 text-slate-200 transition-all">
+                                    <i data-lucide="linkedin" class="w-5 h-5 text-[#00f0ff]"></i>
+                                    <span class="font-mono text-xs sm:text-sm font-medium">LinkedIn</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna Direita: Formulário Interativo -->
+                    <div class="lg:col-span-7 reveal-item">
+                        <form id="scrolly-contact-form" class="space-y-5 bg-[#06080d]/90 p-6 sm:p-8 rounded-2xl border border-white/10">
+                            
+                            <!-- Seleção Visual de Objetivo -->
+                            <div>
+                                <label class="block font-mono text-xs text-slate-400 uppercase mb-2.5">1. Selecione o Objetivo Principal</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="objective-selector">
+                                    <button type="button" data-objective="Desenvolvimento de Sistema / SaaS" class="obj-btn active text-left p-3.5 rounded-xl border border-[#00f0ff] bg-[#00f0ff]/10 text-white text-xs sm:text-sm font-medium transition-all flex items-center gap-2.5">
+                                        <i data-lucide="code-2" class="w-4 h-4 text-[#00f0ff] shrink-0"></i>
+                                        <span>Desenvolvimento de Sistema/SaaS</span>
+                                    </button>
+                                    <button type="button" data-objective="Automação com IA / WhatsApp" class="obj-btn text-left p-3.5 rounded-xl border border-white/10 bg-white/[0.03] text-slate-300 hover:border-white/25 text-xs sm:text-sm font-medium transition-all flex items-center gap-2.5">
+                                        <i data-lucide="bot" class="w-4 h-4 text-[#00f0ff] shrink-0"></i>
+                                        <span>Automação com IA/WhatsApp</span>
+                                    </button>
+                                    <button type="button" data-objective="Estratégia de Tráfego & Funil" class="obj-btn text-left p-3.5 rounded-xl border border-white/10 bg-white/[0.03] text-slate-300 hover:border-white/25 text-xs sm:text-sm font-medium transition-all flex items-center gap-2.5">
+                                        <i data-lucide="target" class="w-4 h-4 text-purple-400 shrink-0"></i>
+                                        <span>Estratégia de Tráfego &amp; Funil</span>
+                                    </button>
+                                    <button type="button" data-objective="Projeto Completo End-to-End" class="obj-btn text-left p-3.5 rounded-xl border border-white/10 bg-white/[0.03] text-slate-300 hover:border-white/25 text-xs sm:text-sm font-medium transition-all flex items-center gap-2.5">
+                                        <i data-lucide="layers" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                                        <span>Projeto Completo End-to-End</span>
+                                    </button>
+                                </div>
+                                <input type="hidden" id="selected-objective" value="Desenvolvimento de Sistema / SaaS">
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="lead-name" class="block font-mono text-xs text-slate-400 uppercase mb-2">2. Seu Nome / Empresa</label>
+                                    <input type="text" id="lead-name" required placeholder="Ex: Carlos Mendes • TechCorp" class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-[#00f0ff] transition-colors text-sm">
+                                </div>
+                                <div>
+                                    <label for="lead-contact" class="block font-mono text-xs text-slate-400 uppercase mb-2">3. Seu WhatsApp ou E-mail</label>
+                                    <input type="text" id="lead-contact" required placeholder="Ex: (61) 99999-9999" class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-[#00f0ff] transition-colors text-sm">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="lead-brief" class="block font-mono text-xs text-slate-400 uppercase mb-2">4. Contexto Rápido do Projeto</label>
+                                <textarea id="lead-brief" rows="3" required placeholder="Descreva brevemente o sistema, automação ou funil que você precisa construir..." class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-[#00f0ff] transition-colors text-sm resize-none"></textarea>
+                            </div>
+
+                            <button type="submit" id="form-submit-btn" class="w-full py-4 rounded-xl font-display font-bold text-sm sm:text-base text-[#050609] bg-gradient-to-r from-[#00f0ff] via-[#6366f1] to-[#7c3aed] hover:brightness-110 shadow-xl shadow-[#00f0ff]/20 flex items-center justify-center gap-2.5 transition-all cursor-pointer">
+                                <span>Enviar Briefing via WhatsApp</span>
+                                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                            </button>
+
+                            <!-- Feedback Visual Imediato com Opções Diretas (Zero-Backend) -->
+                            <div id="form-success-toast" class="hidden p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/35 text-emerald-200 text-xs sm:text-sm space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <strong class="block text-emerald-300 font-semibold">Briefing formatado e pronto!</strong>
+                                        <span id="toast-detail">Abrindo conversa no WhatsApp com seus dados preenchidos.</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-1 pl-8">
+                                    <a id="toast-whatsapp-fallback" href="https://wa.me/5561985327283" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-emerald-500 text-[#050609] font-mono text-xs font-bold hover:brightness-110 transition-all inline-flex items-center gap-1.5">
+                                        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Abrir WhatsApp
+                                    </a>
+                                    <a id="toast-email-fallback" href="mailto:Ariellpureza@gmail.com" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-medium transition-all inline-flex items-center gap-1.5">
+                                        <i data-lucide="mail" class="w-3.5 h-3.5"></i> Enviar por E-mail
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== RODAPÉ ==================== -->
+    <footer class="border-t border-white/[0.06] py-8 bg-[#040507]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2.5 text-sm text-slate-400 text-center md:text-left">
+                <span class="font-display font-bold text-white">Ariell Pureza</span>
+                <span class="text-[#00f0ff]">•</span>
+                <span>Arquiteto de Sistemas &amp; Estrategista de Growth</span>
+            </div>
+
+            <!-- Links Rápidos do Rodapé -->
+            <div class="flex items-center gap-4 text-slate-400">
+                <a href="https://wa.me/5561985327283?text=Ol%C3%A1%20Ariell%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="hover:text-emerald-400 transition-colors" title="WhatsApp (61) 98532-7283">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                </a>
+                <a href="mailto:Ariellpureza@gmail.com" aria-label="E-mail" class="hover:text-[#00f0ff] transition-colors" title="Ariellpureza@gmail.com">
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                </a>
+                <a href="https://github.com/AriellPureza61" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="hover:text-white transition-colors" title="GitHub">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/ariell-pureza-230465194/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-[#00f0ff] transition-colors" title="LinkedIn">
+                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <p class="font-mono text-xs text-slate-500">
+                © <span id="current-year"></span> • Construído com Scrollytelling &amp; Performance.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL DETALHADO DE PROJETO ==================== -->
+    <div id="project-detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6">
+        <div id="modal-overlay" class="fixed inset-0 bg-black/85 backdrop-blur-md"></div>
+
+        <div class="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0b0e15] border border-white/15 shadow-2xl p-6 sm:p-8 z-10">
+            <button id="modal-close-btn" aria-label="Fechar Modal" class="absolute top-5 right-5 p-2.5 rounded-xl bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-2.5 mb-3">
+                <span id="modal-cat-badge" class="px-3 py-1 rounded-full font-mono text-xs bg-[#00f0ff]/15 text-[#00f0ff] border border-[#00f0ff]/30">
+                    Categoria
+                </span>
+            </div>
+
+            <h3 id="modal-proj-title" class="font-display text-2xl sm:text-3xl font-extrabold text-white mb-2">Título</h3>
+            <p id="modal-proj-tagline" class="text-slate-400 text-sm sm:text-base mb-6">Subtítulo</p>
+
+            <div class="space-y-5 border-t border-white/10 pt-6">
+                <div class="p-4 rounded-2xl bg-rose-500/[0.06] border border-rose-500/20">
+                    <h4 class="font-mono text-xs uppercase tracking-wider text-rose-400 mb-1.5 flex items-center gap-2">
+                        <i data-lucide="alert-triangle" class="w-4 h-4"></i> O Desafio de Negócio
+                    </h4>
+                    <p id="modal-proj-challenge" class="text-sm text-slate-300 leading-relaxed"></p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-[#00f0ff]/[0.05] border border-[#00f0ff]/20">
+                    <h4 class="font-mono text-xs uppercase tracking-wider text-[#00f0ff] mb-1.5 flex items-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i> Arquitetura &amp; Solução
+                    </h4>
+                    <p id="modal-proj-solution" class="text-sm text-slate-300 leading-relaxed"></p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-emerald-500/[0.08] border border-emerald-500/25">
+                    <h4 class="font-mono text-xs uppercase tracking-wider text-emerald-400 mb-1.5 flex items-center gap-2">
+                        <i data-lucide="trending-up" class="w-4 h-4"></i> Impacto &amp; Resultados
+                    </h4>
+                    <p id="modal-proj-impact" class="text-sm text-emerald-200 font-medium leading-relaxed"></p>
+                </div>
+
+                <div>
+                    <h4 class="font-mono text-xs uppercase tracking-wider text-slate-400 mb-2.5">Stack Tecnológica</h4>
+                    <div id="modal-proj-stack" class="flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <span class="text-xs text-slate-400">Quer aplicar uma arquitetura similar na sua operação?</span>
+                <a href="#cap-07" id="modal-action-link" class="w-full sm:w-auto px-6 py-3 rounded-xl font-display font-bold text-xs sm:text-sm text-[#050609] bg-gradient-to-r from-[#00f0ff] to-[#6366f1] text-center hover:brightness-110 transition-all">
+                    Solicitar Arquitetura Similar
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MOTOR DE SCROLLYTELLING & INTERATIVIDADE (60FPS) ==================== -->
+    <script>
+        // Inicializar Lucide Icons e Ano
+        lucide.createIcons();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // ==================== BASE DE DADOS DOS PROJETOS ====================
+        const projectsCatalog = [
+            {
+                id: 'claro-orion',
+                title: 'Claro Órion',
+                categories: ['engenharia', 'saas'],
+                badge: 'CRM & Gerador Comercial',
+                icon: 'layout-dashboard',
+                accent: 'cyan',
+                summary: 'CRM comercial e gerador instantâneo de propostas B2B com cálculo automatizado de planos e gestão de funil.',
+                challenge: 'Equipes comerciais enfrentavam gargalos operacionais montando propostas complexas manualmente em planilhas e editores, causando atraso no envio e queda na taxa de conversão de leads quentes.',
+                solution: 'Arquitetura de uma plataforma web de alta performance em React hospedada na Vercel com backend Cloud, motor de regras para composição instantânea de pacotes comerciais e geração automática de propostas prontas para fechamento.',
+                impact: 'Redução de 75% no tempo de geração de propostas comerciais, padronização total da operação de vendas e aceleração do ciclo de fechamento.',
+                stack: ['React', 'TypeScript', 'Tailwind CSS', 'Vercel', 'Cloud Database', 'CRM Pipeline']
+            },
+            {
+                id: 'eva-ai-sdr',
+                title: 'Eva — AI SDR no WhatsApp',
+                categories: ['engenharia', 'marketing'],
+                badge: 'Agente Autônomo de IA',
+                icon: 'bot',
+                accent: 'cyan',
+                summary: 'Agente SDR autônomo no WhatsApp que atende, nutre, quebra objeções e qualifica leads em tempo real 24/7.',
+                challenge: 'Leads vindos de campanhas pagas perdiam o interesse quando aguardavam atendimento humano fora do horário comercial ou em horários de pico.',
+                solution: 'Desenvolvimento de arquitetura orientada a eventos com Node.js, integração direta via Baileys, inteligência conversacional alimentada pela Gemini API e persistência de estado e contexto em tempo real no Firestore.',
+                impact: 'Primeira resposta em menos de 4 segundos, atendimento contínuo 24/7 e entrega de leads pré-qualificados e aquecidos para os executivos de vendas.',
+                stack: ['Node.js', 'Baileys', 'Gemini API', 'Firebase Firestore', 'Webhooks', 'Prompt Engineering']
+            },
+            {
+                id: 'bflow-bplanner',
+                title: 'B. Flow & B. Planner',
+                categories: ['engenharia', 'saas'],
+                badge: 'Ecossistema SaaS B. Tech Solutions',
+                icon: 'layers',
+                accent: 'cyan',
+                summary: 'Ecossistema SaaS completo: ERP/PDV fiscal integrado (B. Flow) e PWA de agendamento mobile-first (B. Planner).',
+                challenge: 'Negócios de serviços e varejo operavam com sistemas desconectados — agendas paralelas, frentes de caixa lentas e falta de visibilidade financeira consolidada.',
+                solution: 'Construção do ecossistema da B. Tech Solutions com arquitetura multi-tenant: B. Flow centralizando ERP, PDV ágil e emissão fiscal, conectado ao B. Planner, um PWA mobile-first de agendamento inteligente.',
+                impact: 'Operação unificada em nuvem, experiência fluida em dispositivos móveis e base tecnológica escalável para múltiplos estabelecimentos.',
+                stack: ['Next.js', 'React PWA', 'Node.js', 'TypeScript', 'Multi-Tenant SaaS', 'ERP & PDV Fiscal']
+            },
+            {
+                id: 'campanhas-motion',
+                title: 'Campanhas de Alta Conversão & Motion Design',
+                categories: ['marketing'],
+                badge: 'Meta Ads, Copy & Motion 9:16',
+                icon: 'clapperboard',
+                accent: 'violet',
+                summary: 'Funis Meta Ads Click-to-WhatsApp combinados com vídeos verticais 9:16, motion design dinâmico e avatares de IA.',
+                challenge: 'Criativos estáticos e anúncios genéricos sofriam com fadiga rápida, alto custo por clique e baixa intenção de compra nas conversas iniciadas.',
+                solution: 'Produção de criativos em vídeo vertical (9:16) com motion design de alta retenção, copywriting focado em dor e mecanismo único, e segmentação orientada à conversão no WhatsApp.',
+                impact: 'Aumento expressivo na taxa de retenção nos primeiros 3 segundos (Hook Rate), redução no custo por lead qualificado e maior previsibilidade de escala.',
+                stack: ['Meta Ads', 'Motion Design 9:16', 'Copywriting', 'AI Avatars', 'Click-to-WhatsApp', 'CRO']
+            },
+            {
+                id: 'gestao-comercial-varejo',
+                title: 'Sistema de Gestão Comercial & Varejo',
+                categories: ['engenharia', 'saas'],
+                badge: 'ERP, Estoque & Inteligência de Dados',
+                icon: 'bar-chart-3',
+                accent: 'cyan',
+                summary: 'Plataforma completa para controle comercial, estoque inteligente, dashboards executivos e automação operacional.',
+                challenge: 'Operações comerciais perdiam margem por falta de visibilidade em tempo real de estoque, giro de produtos e indicadores financeiros consolidados.',
+                solution: 'Desenvolvimento de sistema web modular com controle de movimentações, alertas preditivos de reposição e painéis gerenciais em tempo real.',
+                impact: 'Visibilidade total dos indicadores operacionais em um único painel, eliminação de rupturas de estoque e tomada de decisão baseada em dados.',
+                stack: ['React', 'Node.js', 'PostgreSQL / Supabase', 'BI Dashboards', 'REST APIs', 'Tailwind CSS']
+            }
+        ];
+
+        const projectsContainer = document.getElementById('projects-container');
+        const filterPills = document.querySelectorAll('.filter-pill');
+
+        function renderProjects(filter = 'all') {
+            projectsContainer.innerHTML = '';
+            const filtered = filter === 'all'
+                ? projectsCatalog
+                : projectsCatalog.filter(p => p.categories.includes(filter));
+
+            filtered.forEach((proj) => {
+                const isViolet = proj.accent === 'violet';
+                const accentText = isViolet ? 'text-purple-400' : 'text-[#00f0ff]';
+                const accentBg = isViolet ? 'bg-[#7c3aed]/15 border-[#7c3aed]/30' : 'bg-[#00f0ff]/10 border-[#00f0ff]/25';
+
+                const card = document.createElement('article');
+                card.className = 'glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between gap-3 mb-5">
+                            <div class="w-12 h-12 rounded-2xl ${accentBg} ${accentText} border flex items-center justify-center group-hover:scale-105 transition-transform">
+                                <i data-lucide="${proj.icon}" class="w-6 h-6"></i>
+                            </div>
+                            <span class="px-3 py-1 rounded-full font-mono text-[11px] bg-white/[0.04] border border-white/10 text-slate-300">
+                                ${proj.badge}
+                            </span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-2.5 group-hover:${accentText} transition-colors">
+                            ${proj.title}
+                        </h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                            ${proj.summary}
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            ${proj.stack.slice(0, 4).map(tech => `
+                                <span class="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06] font-mono text-[11px] text-slate-300">
+                                    ${tech}
+                                </span>
+                            `).join('')}
+                        </div>
+                        <div class="pt-4 border-t border-white/[0.07] flex items-center justify-between text-xs font-mono ${accentText}">
+                            <span>Inspecionar Arquitetura</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                        </div>
+                    </div>
+                `;
+
+                card.addEventListener('click', () => openModal(proj));
+                projectsContainer.appendChild(card);
+            });
+
+            lucide.createIcons();
+        }
+
+        // ==================== CÓPIA RÁPIDA DE E-MAIL ====================
+        const copyEmailBtn = document.getElementById('copy-email-btn');
+        const copyEmailLabel = document.getElementById('copy-email-label');
+
+        if (copyEmailBtn) {
+            copyEmailBtn.addEventListener('click', () => {
+                const emailText = copyEmailBtn.dataset.email || 'Ariellpureza@gmail.com';
+                const tempInput = document.createElement('input');
+                tempInput.value = emailText;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                copyEmailLabel.textContent = 'Copiado!';
+                copyEmailBtn.classList.add('border-emerald-500/50', 'text-emerald-300', 'bg-emerald-500/15');
+
+                setTimeout(() => {
+                    copyEmailLabel.textContent = 'Copiar';
+                    copyEmailBtn.classList.remove('border-emerald-500/50', 'text-emerald-300', 'bg-emerald-500/15');
+                }, 2500);
+            });
+        }
+
+        // ==================== SELETOR DE OBJETIVO & FORMULÁRIO (ZERO-BACKEND) ====================
+        const objButtons = document.querySelectorAll('.obj-btn');
+        const selectedObjectiveInput = document.getElementById('selected-objective');
+
+        objButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                objButtons.forEach(b => {
+                    b.classList.remove('active', 'border-[#00f0ff]', 'bg-[#00f0ff]/10', 'text-white');
+                    b.classList.add('border-white/10', 'bg-white/[0.03]', 'text-slate-300');
+                });
+                btn.classList.remove('border-white/10', 'bg-white/[0.03]', 'text-slate-300');
+                btn.classList.add('active', 'border-[#00f0ff]', 'bg-[#00f0ff]/10', 'text-white');
+                selectedObjectiveInput.value = btn.dataset.objective;
+            });
+        });
+
+        const contactForm = document.getElementById('scrolly-contact-form');
+        const toastEl = document.getElementById('form-success-toast');
+        const toastDetail = document.getElementById('toast-detail');
+        const toastWhatsappFallback = document.getElementById('toast-whatsapp-fallback');
+        const toastEmailFallback = document.getElementById('toast-email-fallback');
+        const submitBtn = document.getElementById('form-submit-btn');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const objective = selectedObjectiveInput.value;
+            const leadName = document.getElementById('lead-name').value.trim();
+            const leadContact = document.getElementById('lead-contact').value.trim();
+            const leadBrief = document.getElementById('lead-brief').value.trim();
+
+            const formattedMessage = 
+                `Olá Ariell! Vim pelo seu portfólio e gostaria de conversar sobre um projeto.\n\n` +
+                `*Objetivo:* ${objective}\n` +
+                `*Nome / Empresa:* ${leadName}\n` +
+                `*Contato:* ${leadContact}\n` +
+                `*Contexto:* ${leadBrief}`;
+
+            const whatsappUrl = `https://wa.me/5561985327283?text=${encodeURIComponent(formattedMessage)}`;
+            const mailtoSubject = encodeURIComponent(`Novo Briefing via Portfólio: ${objective} (${leadName})`);
+            const mailtoBody = encodeURIComponent(formattedMessage.replace(/\*/g, ''));
+            const mailtoUrl = `mailto:Ariellpureza@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>Preparando Briefing...</span>`;
+
+            setTimeout(() => {
+                toastWhatsappFallback.href = whatsappUrl;
+                toastEmailFallback.href = mailtoUrl;
+                toastDetail.textContent = `Escopo "${objective}" formatado. Caso o WhatsApp não abra automaticamente, use os botões abaixo:`;
+                toastEl.classList.remove('hidden');
+                
+                window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+                contactForm.reset();
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+                lucide.createIcons();
+            }, 400);
+        });
+
+        filterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                filterPills.forEach(p => {
+                    p.classList.remove('active', 'bg-gradient-to-r', 'from-[#00f0ff]', 'to-[#6366f1]', 'text-[#050609]', 'shadow-lg', 'shadow-[#00f0ff]/20', 'font-semibold');
+                    p.classList.add('bg-white/[0.04]', 'text-slate-300', 'border', 'border-white/10', 'font-medium');
+                });
+                pill.classList.remove('bg-white/[0.04]', 'text-slate-300', 'border', 'border-white/10', 'font-medium');
+                pill.classList.add('active', 'bg-gradient-to-r', 'from-[#00f0ff]', 'to-[#6366f1]', 'text-[#050609]', 'shadow-lg', 'shadow-[#00f0ff]/20', 'font-semibold');
+                renderProjects(pill.dataset.filter);
+            });
+        });
+
+        renderProjects('all');
+
+        // ==================== MODAL DE PROJETO ====================
+        const modalEl = document.getElementById('project-detail-modal');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalActionLink = document.getElementById('modal-action-link');
+
+        function openModal(proj) {
+            document.getElementById('modal-cat-badge').textContent = proj.badge;
+            document.getElementById('modal-proj-title').textContent = proj.title;
+            document.getElementById('modal-proj-tagline').textContent = proj.summary;
+            document.getElementById('modal-proj-challenge').textContent = proj.challenge;
+            document.getElementById('modal-proj-solution').textContent = proj.solution;
+            document.getElementById('modal-proj-impact').textContent = proj.impact;
+
+            const stackContainer = document.getElementById('modal-proj-stack');
+            stackContainer.innerHTML = proj.stack.map(tech => `
+                <span class="px-3 py-1 rounded-lg bg-white/[0.05] border border-white/10 text-slate-200 font-mono text-xs">
+                    ${tech}
+                </span>
+            `).join('');
+
+            modalEl.classList.remove('hidden');
+            modalEl.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            modalEl.classList.add('hidden');
+            modalEl.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', closeModal);
+        modalActionLink.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modalEl.classList.contains('hidden')) closeModal();
+        });
+
+        // ==================== MENU MOBILE ====================
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+        mobileMenuToggle.addEventListener('click', () => mobileNavDrawer.classList.toggle('hidden'));
+        document.querySelectorAll('.drawer-link').forEach(link => {
+            link.addEventListener('click', () => mobileNavDrawer.classList.add('hidden'));
+        });
+
+        // ==================== STICKY SPLIT-SCREEN OBSERVER (ARQUITETURA DO CRESCIMENTO) ====================
+        const storySteps = document.querySelectorAll('[data-story-step]');
+        const vizStates = [
+            document.getElementById('viz-state-0'),
+            document.getElementById('viz-state-1'),
+            document.getElementById('viz-state-2')
+        ];
+        const vizBars = document.querySelectorAll('.viz-bar');
+        const vizStatusLabel = document.getElementById('viz-status-label');
+        const vizStepCounter = document.getElementById('viz-step-counter');
+        const vizGlow = document.getElementById('viz-glow');
+
+        const vizMetadata = [
+            { label: 'CAMADA_01 // AQUISIÇÃO_DE_TRÁFEGO', count: '01 / 03', glow: 'rgba(124, 58, 237, 0.25)' },
+            { label: 'CAMADA_02 // QUALIFICAÇÃO_AUTÔNOMA_IA', count: '02 / 03', glow: 'rgba(0, 240, 255, 0.22)' },
+            { label: 'CAMADA_03 // OPERAÇÃO_SAAS_&_CRM', count: '03 / 03', glow: 'rgba(16, 185, 129, 0.22)' }
+        ];
+
+        function activateVizStep(index) {
+            storySteps.forEach((step, i) => {
+                step.classList.toggle('active-step', i === index);
+            });
+            vizStates.forEach((state, i) => {
+                state.classList.toggle('active', i === index);
+            });
+            vizBars.forEach((bar, i) => {
+                bar.classList.toggle('bg-[#00f0ff]', i === index);
+                bar.classList.toggle('bg-white/15', i !== index);
+            });
+            if (vizMetadata[index]) {
+                vizStatusLabel.textContent = vizMetadata[index].label;
+                vizStepCounter.textContent = vizMetadata[index].count;
+                vizGlow.style.backgroundColor = vizMetadata[index].glow;
+            }
+        }
+
+        // Permitir clique direto nas barras do visualizador
+        vizBars.forEach((bar) => {
+            bar.addEventListener('click', () => {
+                const idx = parseInt(bar.dataset.vizTrigger, 10);
+                activateVizStep(idx);
+            });
+        });
+
+        const splitObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const stepIdx = parseInt(entry.target.dataset.storyStep, 10);
+                    activateVizStep(stepIdx);
+                }
+            });
+        }, {
+            rootMargin: '-35% 0px -35% 0px',
+            threshold: 0.15
+        });
+
+        storySteps.forEach(step => splitObserver.observe(step));
+
+        // ==================== SCROLL REVEAL ESCALONADO ====================
+        const revealObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.reveal-item').forEach(el => revealObserver.observe(el));
+
+        // ==================== CANVAS DE PARTÍCULAS REATIVO AO SCROLL ====================
+        const canvas = document.getElementById('scrolly-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let currentHeroStage = 0;
+
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            if (!container) return;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+            initParticles();
+        }
+
+        function initParticles() {
+            const count = window.innerWidth < 640 ? 28 : 52;
+            particles = Array.from({ length: count }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.45,
+                vy: (Math.random() - 0.5) * 0.45,
+                size: Math.random() * 2 + 1
+            }));
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // ==================== MOTOR CENTRAL DE SCROLLYTELLING (REQUESTANIMATIONFRAME) ====================
+        const globalProgressBar = document.getElementById('global-scroll-progress');
+        const heroSection = document.getElementById('cap-01');
+        const heroStages = [
+            document.getElementById('hero-stage-0'),
+            document.getElementById('hero-stage-1'),
+            document.getElementById('hero-stage-2')
+        ];
+        const heroPills = [
+            document.getElementById('hero-pill-0'),
+            document.getElementById('hero-pill-1'),
+            document.getElementById('hero-pill-2')
+        ];
+        const orbCyan = document.getElementById('hero-orb-cyan');
+        const orbViolet = document.getElementById('hero-orb-violet');
+        const hudItems = document.querySelectorAll('.chapter-item');
+        const mobileChapterIndicator = document.getElementById('mobile-chapter-indicator');
+
+        const chapterNames = [
+            '01. O Código',
+            '02. A Atenção',
+            '03. A Fusão',
+            '04. Arquitetura',
+            '05. Ecossistema',
+            '06. Stack Dupla',
+            '07. Conexão'
+        ];
+
+        const sectionsMap = [
+            document.getElementById('cap-04'),
+            document.getElementById('cap-05'),
+            document.getElementById('cap-06'),
+            document.getElementById('cap-07')
+        ];
+
+        function updateHUD(activeChapterIdx) {
+            hudItems.forEach((item, idx) => {
+                item.classList.toggle('active', idx === activeChapterIdx);
+            });
+            if (mobileChapterIndicator && chapterNames[activeChapterIdx]) {
+                mobileChapterIndicator.textContent = chapterNames[activeChapterIdx];
+            }
+        }
+
+        function setHeroStage(stageIndex) {
+            if (currentHeroStage === stageIndex) return;
+            currentHeroStage = stageIndex;
+
+            heroStages.forEach((stage, i) => {
+                stage.classList.remove('is-active', 'is-past');
+                if (i === stageIndex) {
+                    stage.classList.add('is-active');
+                } else if (i < stageIndex) {
+                    stage.classList.add('is-past');
+                }
+            });
+
+            heroPills.forEach((pill, i) => {
+                if (i === stageIndex) {
+                    pill.classList.remove('w-3', 'bg-white/20');
+                    pill.classList.add('w-8', 'bg-[#00f0ff]');
+                } else {
+                    pill.classList.remove('w-8', 'bg-[#00f0ff]');
+                    pill.classList.add('w-3', 'bg-white/20');
+                }
+            });
+        }
+
+        function renderLoop() {
+            const scrollY = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const globalProgress = docHeight > 0 ? Math.min(Math.max(scrollY / docHeight, 0), 1) : 0;
+
+            // 1. Atualiza Barra de Progresso Superior
+            globalProgressBar.style.width = `${(globalProgress * 100).toFixed(2)}%`;
+
+            // 2. Calcula Progresso dentro do Hero Pinned Stage (260vh)
+            const heroRect = heroSection.getBoundingClientRect();
+            const heroScrollable = heroSection.offsetHeight - window.innerHeight;
+            const heroScrolled = Math.min(Math.max(-heroRect.top, 0), heroScrollable);
+            const heroProgress = heroScrollable > 0 ? heroScrolled / heroScrollable : 0;
+
+            // Parallax suave nos orbes de luz do Hero
+            orbCyan.style.transform = `translate3d(${heroProgress * 90}px, ${heroProgress * 60}px, 0) scale(${1 + heroProgress * 0.15})`;
+            orbViolet.style.transform = `translate3d(${-heroProgress * 90}px, ${-heroProgress * 50}px, 0) scale(${1 + (1 - heroProgress) * 0.1})`;
+
+            // Transição entre Estágios 0, 1 e 2 do Hero
+            let heroStageIdx = 0;
+            if (heroProgress >= 0.33 && heroProgress < 0.66) {
+                heroStageIdx = 1;
+            } else if (heroProgress >= 0.66) {
+                heroStageIdx = 2;
+            }
+            setHeroStage(heroStageIdx);
+
+            // 3. Determina Capítulo Ativo no HUD
+            const viewportMid = window.innerHeight * 0.45;
+            if (heroRect.bottom > viewportMid) {
+                updateHUD(heroStageIdx); // Capítulos 0, 1 ou 2
+            } else {
+                let activeSectionChapter = 3;
+                sectionsMap.forEach((sec, idx) => {
+                    if (sec && sec.getBoundingClientRect().top <= viewportMid) {
+                        activeSectionChapter = 3 + idx;
+                    }
+                });
+                updateHUD(activeSectionChapter);
+            }
+
+            // 4. Renderiza Partículas no Canvas (só quando Hero está visível para máxima performance)
+            if (heroRect.bottom > 0) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const particleColor = currentHeroStage === 1 ? '124, 58, 237' : '0, 240, 255';
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.vx * (1 + heroProgress * 1.5);
+                    p.y += p.vy * (1 + heroProgress * 1.5);
+
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${particleColor}, 0.55)`;
+                    ctx.fill();
+
+                    // Conecta partículas próximas formando rede neural / grafo de dados
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx = p.x - p2.x;
+                        const dy = p.y - p2.y;
+                        const dist = Math.hypot(dx, dy);
+                        if (dist < 125) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `rgba(${particleColor}, ${(1 - dist / 125) * 0.16})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            requestAnimationFrame(renderLoop);
+        }
+
+        window.onload = function () {
+            resizeCanvas();
+            requestAnimationFrame(renderLoop);
+        };
+    </script>
+</body>
+</html>
