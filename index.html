@@ -307,15 +307,15 @@
     <!-- ==================== 2. HERO SCROLLYTELLING (PINNED STAGE 230VH) ==================== -->
     <section id="cap-01" class="relative h-[230vh] w-full">
         <!-- Palco Fixo na Viewport -->
-        <div id="hero-sticky-viewport" class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+        <div id="hero-sticky-viewport" class="sticky top-0 h-[100dvh] lg:h-screen w-full overflow-hidden flex items-center justify-center">
             
             <!-- Foto de Fundo Full-Bleed do Portfólio -->
             <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                <div class="absolute inset-y-0 left-0 w-full lg:-left-[9%] lg:w-[109%] overflow-hidden">
-                    <img id="hero-bg-photo" src="hero-ariell-uhd.jpg" alt="Ariell Pureza — Portfólio Oficial" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[34%_14%] lg:object-[70%_15%] transition-transform duration-300 ease-out will-change-transform">
+                <div class="absolute top-14 left-0 w-full h-[50vh] lg:top-0 lg:inset-y-0 lg:-left-[9%] lg:w-[109%] lg:h-full overflow-hidden">
+                    <img id="hero-bg-photo" src="hero-ariell-uhd.jpg" alt="Ariell Pureza — Portfólio Oficial" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[19%_14%] sm:object-[25%_14%] lg:object-[70%_15%] transition-transform duration-300 ease-out will-change-transform">
                 </div>
                 <div class="hidden lg:block absolute inset-0" style="background: linear-gradient(90deg, rgba(5,6,9,0) 0%, rgba(5,6,9,0) 38%, rgba(5,6,9,0.52) 52%, rgba(5,6,9,0.88) 74%, rgba(5,6,9,0.96) 100%);"></div>
-                <div class="lg:hidden absolute inset-0" style="background: linear-gradient(180deg, rgba(5,6,9,0.08) 0%, rgba(5,6,9,0.12) 38%, rgba(5,6,9,0.78) 65%, rgba(5,6,9,0.96) 100%);"></div>
+                <div class="lg:hidden absolute inset-0" style="background: linear-gradient(180deg, rgba(5,6,9,0.22) 0%, rgba(5,6,9,0) 14%, rgba(5,6,9,0) 32%, rgba(5,6,9,0.68) 46%, rgba(5,6,9,0.97) 55%, rgba(5,6,9,1) 62%, rgba(5,6,9,1) 100%);"></div>
                 <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#050609] to-transparent"></div>
                 <div id="hero-stage-dimmer" class="absolute inset-0 bg-[#050609]/0 transition-colors duration-500"></div>
             </div>
@@ -328,76 +328,77 @@
             <div id="hero-orb-violet" class="absolute z-[1] w-[320px] h-[320px] sm:w-[560px] sm:h-[560px] rounded-full bg-[#7c3aed]/20 blur-[140px] pointer-events-none opacity-0 transition-all duration-500 ease-out" style="bottom: 10%; right: 10%;"></div>
 
             <!-- Container Central dos 3 Estágios Narrativos -->
-            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-[84vh] flex items-center justify-center">
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full lg:h-[84vh] flex items-center justify-center">
 
                 <!-- ESTÁGIO 1 (0% - 33%): 01. PORTFÓLIO & SOFTWARES AO VIVO -->
-                <div id="hero-stage-0" class="hero-stage is-active w-full !justify-end pb-12 pt-16 lg:!justify-center lg:pb-0">
-                    <div class="w-full lg:w-[54%] xl:w-[49%] lg:ml-auto text-left">
-                        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#050609]/75 backdrop-blur-md border border-[#00f0ff]/35 font-mono text-[11px] sm:text-xs text-[#00f0ff] mb-4 shadow-lg shadow-[#00f0ff]/10">
+                <div id="hero-stage-0" class="hero-stage is-active w-full !justify-end pb-14 pt-16 lg:!justify-center lg:pb-0 lg:pt-0">
+                    <div class="w-full max-w-[420px] mx-auto text-center flex flex-col items-center lg:max-w-none lg:w-[54%] xl:w-[49%] lg:ml-auto lg:mr-0 lg:text-left lg:items-start">
+                        <div class="inline-flex items-center justify-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#050609]/80 backdrop-blur-md border border-[#00f0ff]/35 font-mono text-[10px] sm:text-xs text-[#00f0ff] mb-2.5 sm:mb-4 shadow-lg shadow-[#00f0ff]/10">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             <span>ARIELL PUREZA • PORTFÓLIO OFICIAL</span>
                             <span class="text-slate-400">BSB • BR</span>
                         </div>
 
-                        <h1 class="font-display text-3xl sm:text-5xl xl:text-[3.35rem] font-extrabold tracking-tight text-white leading-[1.06] mb-4 drop-shadow-[0_4px_24px_rgba(5,6,9,0.9)]">
+                        <h1 class="font-display text-[1.9rem] sm:text-5xl xl:text-[3.35rem] font-extrabold tracking-tight text-white leading-[1.06] mb-2.5 sm:mb-4 drop-shadow-[0_4px_24px_rgba(5,6,9,0.9)]">
                             Sistemas &amp;<br><span class="gradient-text-cyan">Estratégia de Marca</span>.
                         </h1>
 
-                        <p class="text-sm sm:text-base lg:text-lg text-slate-200 leading-relaxed mb-5 drop-shadow-[0_2px_12px_rgba(5,6,9,0.9)]">
+                        <p class="text-xs sm:text-base lg:text-lg text-slate-200 leading-relaxed mb-4 sm:mb-5 max-w-[340px] sm:max-w-xl lg:max-w-none drop-shadow-[0_2px_12px_rgba(5,6,9,0.9)]">
                             Projeto softwares SaaS, automações com IA e estratégias de posicionamento e planejamento de marketing para marcas que querem se diferenciar e escalar com estrutura.
                         </p>
 
                         <!-- Barra de Acesso Rápido aos Softwares (1 Clique) -->
-                        <div class="mb-5">
-                            <div class="font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-emerald-300 mb-2 flex items-center gap-2">
+                        <div class="w-full mb-3.5 sm:mb-5">
+                            <div class="font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-emerald-300 mb-2 flex items-center justify-center lg:justify-start gap-2">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                                 <span>TESTAR SOFTWARES AO VIVO • 1 CLIQUE</span>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                                <a href="https://b-flow-seven.vercel.app" target="_blank" rel="noopener noreferrer" class="glass-panel rounded-2xl px-3.5 py-3 border border-white/15 hover:border-[#00f0ff]/60 bg-[#0b0e15]/85 hover:bg-[#00f0ff]/10 transition-all group flex items-center justify-between gap-2">
-                                    <div class="min-w-0">
-                                        <div class="flex items-center gap-1.5">
+                            <div class="grid grid-cols-3 gap-2 sm:gap-2.5">
+                                <a href="https://b-flow-seven.vercel.app" target="_blank" rel="noopener noreferrer" class="glass-panel rounded-xl lg:rounded-2xl px-2 py-2.5 lg:px-3.5 lg:py-3 border border-white/15 hover:border-[#00f0ff]/60 bg-[#0b0e15]/85 hover:bg-[#00f0ff]/10 transition-all group flex flex-col lg:flex-row items-center lg:justify-between text-center lg:text-left gap-0.5 lg:gap-2">
+                                    <div class="min-w-0 w-full">
+                                        <div class="flex items-center justify-center lg:justify-start gap-1.5">
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-                                            <span class="font-display font-bold text-sm text-white group-hover:text-[#00f0ff] transition-colors truncate">B. Flow</span>
+                                            <span class="font-display font-bold text-xs sm:text-sm text-white group-hover:text-[#00f0ff] transition-colors truncate">B. Flow</span>
                                         </div>
-                                        <div class="font-mono text-[10px] text-slate-400 truncate">Gestão &amp; PDV</div>
+                                        <div class="font-mono text-[9px] sm:text-[10px] text-slate-400 truncate max-w-full">Gestão &amp; PDV</div>
                                     </div>
-                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400 group-hover:text-[#00f0ff] shrink-0 transition-colors"></i>
+                                    <i data-lucide="external-link" class="hidden lg:block w-3.5 h-3.5 text-slate-400 group-hover:text-[#00f0ff] shrink-0 transition-colors"></i>
                                 </a>
 
-                                <a href="https://ariellpureza61.github.io/ateliesync-portfolio/" target="_blank" rel="noopener noreferrer" class="glass-panel rounded-2xl px-3.5 py-3 border border-white/15 hover:border-[#00f0ff]/60 bg-[#0b0e15]/85 hover:bg-[#00f0ff]/10 transition-all group flex items-center justify-between gap-2">
-                                    <div class="min-w-0">
-                                        <div class="flex items-center gap-1.5">
+                                <a href="https://ariellpureza61.github.io/ateliesync-portfolio/" target="_blank" rel="noopener noreferrer" class="glass-panel rounded-xl lg:rounded-2xl px-2 py-2.5 lg:px-3.5 lg:py-3 border border-white/15 hover:border-[#00f0ff]/60 bg-[#0b0e15]/85 hover:bg-[#00f0ff]/10 transition-all group flex flex-col lg:flex-row items-center lg:justify-between text-center lg:text-left gap-0.5 lg:gap-2">
+                                    <div class="min-w-0 w-full">
+                                        <div class="flex items-center justify-center lg:justify-start gap-1.5">
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-                                            <span class="font-display font-bold text-sm text-white group-hover:text-[#00f0ff] transition-colors truncate">AteliêSync</span>
+                                            <span class="font-display font-bold text-xs sm:text-sm text-white group-hover:text-[#00f0ff] transition-colors truncate">AteliêSync</span>
                                         </div>
-                                        <div class="font-mono text-[10px] text-slate-400 truncate">IA &amp; Agenda</div>
+                                        <div class="font-mono text-[9px] sm:text-[10px] text-slate-400 truncate max-w-full">IA &amp; Agenda</div>
                                     </div>
-                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400 group-hover:text-[#00f0ff] shrink-0 transition-colors"></i>
+                                    <i data-lucide="external-link" class="hidden lg:block w-3.5 h-3.5 text-slate-400 group-hover:text-[#00f0ff] shrink-0 transition-colors"></i>
                                 </a>
 
-                                <a href="https://claro-orion-portfolio.vercel.app" target="_blank" rel="noopener noreferrer" class="glass-panel rounded-2xl px-3.5 py-3 border border-white/15 hover:border-[#00f0ff]/60 bg-[#0b0e15]/85 hover:bg-[#00f0ff]/10 transition-all group flex items-center justify-between gap-2">
-                                    <div class="min-w-0">
-                                        <div class="flex items-center gap-1.5">
+                                <a href="https://claro-orion-portfolio.vercel.app" target="_blank" rel="noopener noreferrer" class="glass-panel rounded-xl lg:rounded-2xl px-2 py-2.5 lg:px-3.5 lg:py-3 border border-white/15 hover:border-[#00f0ff]/60 bg-[#0b0e15]/85 hover:bg-[#00f0ff]/10 transition-all group flex flex-col lg:flex-row items-center lg:justify-between text-center lg:text-left gap-0.5 lg:gap-2">
+                                    <div class="min-w-0 w-full">
+                                        <div class="flex items-center justify-center lg:justify-start gap-1.5">
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-                                            <span class="font-display font-bold text-sm text-white group-hover:text-[#00f0ff] transition-colors truncate">Claro Órion</span>
+                                            <span class="font-display font-bold text-xs sm:text-sm text-white group-hover:text-[#00f0ff] transition-colors truncate">Claro Órion</span>
                                         </div>
-                                        <div class="font-mono text-[10px] text-slate-400 truncate">CRM &amp; Ofertas</div>
+                                        <div class="font-mono text-[9px] sm:text-[10px] text-slate-400 truncate max-w-full">CRM &amp; Ofertas</div>
                                     </div>
-                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400 group-hover:text-[#00f0ff] shrink-0 transition-colors"></i>
+                                    <i data-lucide="external-link" class="hidden lg:block w-3.5 h-3.5 text-slate-400 group-hover:text-[#00f0ff] shrink-0 transition-colors"></i>
                                 </a>
                             </div>
                         </div>
 
                         <!-- CTAs Secundários -->
-                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                            <a href="#cap-05" class="px-6 py-3.5 rounded-2xl font-display font-bold text-xs sm:text-sm text-[#050609] bg-gradient-to-r from-[#00f0ff] to-[#6366f1] hover:brightness-110 shadow-xl shadow-[#00f0ff]/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
-                                <span>Ver Detalhes dos Projetos</span>
-                                <i data-lucide="layers" class="w-4 h-4"></i>
+                        <div class="w-full grid grid-cols-2 sm:flex sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-2.5 sm:gap-3">
+                            <a href="#cap-05" class="px-3 py-3 sm:px-6 sm:py-3.5 rounded-xl sm:rounded-2xl font-display font-bold text-xs sm:text-sm text-[#050609] bg-gradient-to-r from-[#00f0ff] to-[#6366f1] hover:brightness-110 shadow-xl shadow-[#00f0ff]/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
+                                <span class="sm:hidden">Ver Projetos</span>
+                                <span class="hidden sm:inline">Ver Detalhes dos Projetos</span>
+                                <i data-lucide="layers" class="w-4 h-4 shrink-0"></i>
                             </a>
-                            <a href="#cap-07" class="px-6 py-3.5 rounded-2xl font-display font-bold text-xs sm:text-sm text-white bg-[#0b0e15]/80 hover:bg-white/[0.12] border border-white/20 hover:border-[#00f0ff]/50 backdrop-blur-md flex items-center justify-center gap-2 transition-all">
+                            <a href="#cap-07" class="px-3 py-3 sm:px-6 sm:py-3.5 rounded-xl sm:rounded-2xl font-display font-bold text-xs sm:text-sm text-white bg-[#0b0e15]/80 hover:bg-white/[0.12] border border-white/20 hover:border-[#00f0ff]/50 backdrop-blur-md flex items-center justify-center gap-2 transition-all">
                                 <span>Iniciar Projeto</span>
-                                <i data-lucide="arrow-up-right" class="w-4 h-4 text-[#00f0ff]"></i>
+                                <i data-lucide="arrow-up-right" class="w-4 h-4 text-[#00f0ff] shrink-0"></i>
                             </a>
                         </div>
                     </div>
@@ -405,33 +406,33 @@
 
                 <!-- ESTÁGIO 2 (34% - 66%): 02. POSICIONAMENTO & PLANEJAMENTO -->
                 <div id="hero-stage-1" class="hero-stage text-center max-w-4xl mx-auto px-2">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#7c3aed]/20 border border-[#7c3aed]/40 font-mono text-xs text-purple-300 mb-6 backdrop-blur-md">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#7c3aed]/20 border border-[#7c3aed]/40 font-mono text-[11px] sm:text-xs text-purple-300 mb-4 sm:mb-6 backdrop-blur-md">
                         <span>CAPÍTULO 02 // POSICIONAMENTO &amp; PLANEJAMENTO</span>
                     </div>
-                    <h2 class="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
+                    <h2 class="font-display text-2xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-3 sm:mb-6">
                         Marca sem estratégia e sistema <span class="gradient-text-violet">perde tração</span>.
                     </h2>
-                    <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+                    <p class="text-xs sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-5 sm:mb-8">
                         Posicionamento forte constrói desejo e autoridade — mas sem planejamento de marketing estruturado, atendimento com IA e software próprio, o crescimento trava no operacional.
                     </p>
 
                     <!-- Painel de Pilares Estratégicos -->
-                    <div class="w-full max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-[#7c3aed]/30">
+                    <div class="w-full max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4">
+                        <div class="glass-panel rounded-2xl p-3 sm:p-5 border border-[#7c3aed]/30">
                             <div class="font-mono text-[11px] text-purple-300 uppercase mb-1">Posicionamento</div>
-                            <div class="font-display text-2xl sm:text-3xl font-extrabold text-white">Autoridade</div>
+                            <div class="font-display text-xl sm:text-3xl font-extrabold text-white">Autoridade</div>
                             <div class="text-[11px] text-emerald-400 font-mono mt-1 flex items-center justify-center gap-1">
                                 <i data-lucide="compass" class="w-3 h-3"></i> Diferenciação de marca
                             </div>
                         </div>
-                        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-indigo-500/30">
+                        <div class="glass-panel rounded-2xl p-3 sm:p-5 border border-indigo-500/30">
                             <div class="font-mono text-[11px] text-indigo-300 uppercase mb-1">Planejamento</div>
-                            <div class="font-display text-2xl sm:text-3xl font-extrabold text-indigo-300">Estratégia</div>
+                            <div class="font-display text-xl sm:text-3xl font-extrabold text-indigo-300">Estratégia</div>
                             <div class="text-[11px] text-slate-300 font-mono mt-1">Oferta, canais e jornada</div>
                         </div>
-                        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-[#00f0ff]/30">
+                        <div class="glass-panel rounded-2xl p-3 sm:p-5 border border-[#00f0ff]/30">
                             <div class="font-mono text-[11px] text-[#00f0ff] uppercase mb-1">Atendimento IA</div>
-                            <div class="font-display text-2xl sm:text-3xl font-extrabold text-[#00f0ff]">&lt; 4 seg</div>
+                            <div class="font-display text-xl sm:text-3xl font-extrabold text-[#00f0ff]">&lt; 4 seg</div>
                             <div class="text-[11px] text-emerald-400 font-mono mt-1">Qualificação 24/7</div>
                         </div>
                     </div>
@@ -439,46 +440,46 @@
 
                 <!-- ESTÁGIO 3 (67% - 100%): 03. A FUSÃO (MARCA ARIELL PUREZA) -->
                 <div id="hero-stage-2" class="hero-stage max-w-4xl mx-auto px-2 text-center">
-                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] backdrop-blur-md border border-[#00f0ff]/35 font-mono text-[11px] sm:text-xs text-[#00f0ff] mb-5 shadow-lg shadow-[#00f0ff]/10">
+                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] backdrop-blur-md border border-[#00f0ff]/35 font-mono text-[10px] sm:text-xs text-[#00f0ff] mb-3.5 sm:mb-5 shadow-lg shadow-[#00f0ff]/10">
                         <span class="w-2 h-2 rounded-full bg-[#00f0ff] animate-ping"></span>
                         <span>CAPÍTULO 03 // A FUSÃO • ARIELL PUREZA</span>
                     </div>
 
-                    <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.08] mb-5">
+                    <h2 class="font-display text-2xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.08] mb-3 sm:mb-5">
                         Onde a <span class="gradient-text-cyan">Engenharia de Software</span> encontra a <span class="gradient-text-violet">Estratégia de Marca</span>.
                     </h2>
 
-                    <p class="text-sm sm:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed mb-7">
+                    <p class="text-xs sm:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed mb-4 sm:mb-7">
                         Construo o ecossistema completo: do posicionamento de marca e planejamento estratégico de marketing até agentes de IA no WhatsApp, CRMs e plataformas SaaS em produção.
                     </p>
 
                     <!-- KPIs de Autoridade -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-7 max-w-3xl mx-auto w-full">
-                        <div class="glass-panel rounded-xl py-3 px-3 border border-white/10">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 mb-4 sm:mb-7 max-w-3xl mx-auto w-full">
+                        <div class="glass-panel rounded-xl py-2.5 sm:py-3 px-2.5 sm:px-3 border border-white/10">
                             <div class="font-display font-extrabold text-sm sm:text-base text-white">End-to-End</div>
                             <div class="font-mono text-[10px] text-slate-400">Marca ao Software</div>
                         </div>
-                        <div class="glass-panel rounded-xl py-3 px-3 border border-white/10">
+                        <div class="glass-panel rounded-xl py-2.5 sm:py-3 px-2.5 sm:px-3 border border-white/10">
                             <div class="font-display font-extrabold text-sm sm:text-base text-[#00f0ff]">AI Agents</div>
                             <div class="font-mono text-[10px] text-slate-400">Atendimento 24/7</div>
                         </div>
-                        <div class="glass-panel rounded-xl py-3 px-3 border border-white/10">
+                        <div class="glass-panel rounded-xl py-2.5 sm:py-3 px-2.5 sm:px-3 border border-white/10">
                             <div class="font-display font-extrabold text-sm sm:text-base text-purple-400">SaaS &amp; CRM</div>
                             <div class="font-mono text-[10px] text-slate-400">Multi-Tenant</div>
                         </div>
-                        <div class="glass-panel rounded-xl py-3 px-3 border border-white/10">
+                        <div class="glass-panel rounded-xl py-2.5 sm:py-3 px-2.5 sm:px-3 border border-white/10">
                             <div class="font-display font-extrabold text-sm sm:text-base text-emerald-400">Brand Strategy</div>
                             <div class="font-mono text-[10px] text-slate-400">Posicionamento &amp; Plano</div>
                         </div>
                     </div>
 
                     <!-- CTAs Principais -->
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                        <a href="#cap-05" class="w-full sm:w-auto px-7 py-3.5 rounded-2xl font-display font-bold text-xs sm:text-sm text-[#050609] bg-gradient-to-r from-[#00f0ff] to-[#6366f1] hover:brightness-110 shadow-xl shadow-[#00f0ff]/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3 w-full">
+                        <a href="#cap-05" class="w-full sm:w-auto px-7 py-3 sm:py-3.5 rounded-2xl font-display font-bold text-xs sm:text-sm text-[#050609] bg-gradient-to-r from-[#00f0ff] to-[#6366f1] hover:brightness-110 shadow-xl shadow-[#00f0ff]/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
                             <span>Acessar Softwares ao Vivo</span>
                             <i data-lucide="layers" class="w-4 h-4"></i>
                         </a>
-                        <a href="#cap-07" class="w-full sm:w-auto px-7 py-3.5 rounded-2xl font-display font-bold text-xs sm:text-sm text-white bg-white/[0.06] hover:bg-white/[0.12] border border-white/20 hover:border-[#00f0ff]/50 flex items-center justify-center gap-2 transition-all">
+                        <a href="#cap-07" class="w-full sm:w-auto px-7 py-3 sm:py-3.5 rounded-2xl font-display font-bold text-xs sm:text-sm text-white bg-white/[0.06] hover:bg-white/[0.12] border border-white/20 hover:border-[#00f0ff]/50 flex items-center justify-center gap-2 transition-all">
                             <span>Iniciar Projeto</span>
                             <i data-lucide="arrow-up-right" class="w-4 h-4 text-[#00f0ff]"></i>
                         </a>
@@ -488,7 +489,7 @@
             </div>
 
             <!-- Barra de Progresso Interna do Ato I + Indicador de Scroll -->
-            <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20">
+            <div class="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20">
                 <div class="flex items-center gap-2">
                     <button type="button" id="hero-pill-0" data-hero-pill="0" aria-label="Etapa 1" class="h-1.5 w-8 rounded-full bg-[#00f0ff] transition-all duration-300 cursor-pointer"></button>
                     <button type="button" id="hero-pill-1" data-hero-pill="1" aria-label="Etapa 2" class="h-1.5 w-3 rounded-full bg-white/20 transition-all duration-300 cursor-pointer"></button>
