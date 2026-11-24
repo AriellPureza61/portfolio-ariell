@@ -218,7 +218,7 @@
                 <!-- Identidade com Foto de Perfil -->
                 <a href="#cap-01" class="flex items-center gap-3 group">
                     <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#00f0ff] to-[#7c3aed] p-[1.5px] shadow-lg shadow-[#00f0ff]/20">
-                        <img src="image_ccdd1b.jpg" alt="Ariell Pureza" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" class="w-full h-full object-cover object-[40%_15%] rounded-[10.5px]">
+                        <img src="image_ccdd1b.jpg?v=2" alt="Ariell Pureza" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" class="w-full h-full object-cover object-[34%_14%] rounded-[10.5px]">
                         <div class="hidden w-full h-full rounded-[10.5px] bg-[#050609] items-center justify-center font-mono font-bold text-xs text-[#00f0ff]">
                             AP
                         </div>
@@ -306,37 +306,40 @@
     <!-- ==================== 2. HERO SCROLLYTELLING (PINNED STAGE 230VH) ==================== -->
     <section id="cap-01" class="relative h-[230vh] w-full">
         <!-- Palco Fixo na Viewport -->
-        <div id="hero-sticky-viewport" class="sticky top-0 h-screen w-full overflow-hidden cyber-grid flex items-center justify-center">
+        <div id="hero-sticky-viewport" class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
             
             <!-- Foto de Fundo Full-Bleed do Portfólio -->
             <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                <img id="hero-bg-photo" src="image_ccdd1b.jpg" alt="Ariell Pureza — Portfólio Oficial" class="w-full h-full object-cover object-[40%_16%] lg:object-[34%_18%] transition-transform duration-300 ease-out will-change-transform">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#050609] via-[#050609]/65 to-[#050609]/25 lg:bg-gradient-to-r lg:from-[#050609]/15 lg:via-[#050609]/50 lg:to-[#050609]/95"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-[#050609] via-transparent to-[#050609]/45"></div>
+                <div class="absolute inset-y-0 left-0 w-full lg:-left-[9%] lg:w-[109%] overflow-hidden">
+                    <img id="hero-bg-photo" src="image_ccdd1b.jpg?v=2" alt="Ariell Pureza — Portfólio Oficial" class="w-full h-full object-cover object-[34%_14%] lg:object-[70%_15%] transition-transform duration-300 ease-out will-change-transform">
+                </div>
+                <div class="hidden lg:block absolute inset-0" style="background: linear-gradient(90deg, rgba(5,6,9,0) 0%, rgba(5,6,9,0) 38%, rgba(5,6,9,0.52) 52%, rgba(5,6,9,0.88) 74%, rgba(5,6,9,0.96) 100%);"></div>
+                <div class="lg:hidden absolute inset-0" style="background: linear-gradient(180deg, rgba(5,6,9,0.08) 0%, rgba(5,6,9,0.12) 38%, rgba(5,6,9,0.78) 65%, rgba(5,6,9,0.96) 100%);"></div>
+                <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#050609] to-transparent"></div>
                 <div id="hero-stage-dimmer" class="absolute inset-0 bg-[#050609]/0 transition-colors duration-500"></div>
             </div>
 
             <!-- Canvas de Partículas Interativas & Fluxo de Dados -->
-            <canvas id="scrolly-canvas" class="absolute inset-0 z-[1] w-full h-full pointer-events-none opacity-35"></canvas>
+            <canvas id="scrolly-canvas" class="absolute inset-0 z-[1] w-full h-full pointer-events-none opacity-0 transition-opacity duration-500"></canvas>
 
             <!-- Orbes de Iluminação Dinâmica Guiados pelo Scroll -->
-            <div id="hero-orb-cyan" class="absolute z-[1] w-[320px] h-[320px] sm:w-[540px] sm:h-[540px] rounded-full bg-[#00f0ff]/15 blur-[130px] pointer-events-none transition-transform duration-150 ease-out" style="top: 15%; left: 10%;"></div>
-            <div id="hero-orb-violet" class="absolute z-[1] w-[320px] h-[320px] sm:w-[560px] sm:h-[560px] rounded-full bg-[#7c3aed]/20 blur-[140px] pointer-events-none transition-transform duration-150 ease-out" style="bottom: 10%; right: 10%;"></div>
+            <div id="hero-orb-cyan" class="absolute z-[1] w-[320px] h-[320px] sm:w-[540px] sm:h-[540px] rounded-full bg-[#00f0ff]/15 blur-[130px] pointer-events-none opacity-0 transition-all duration-500 ease-out" style="top: 15%; left: 10%;"></div>
+            <div id="hero-orb-violet" class="absolute z-[1] w-[320px] h-[320px] sm:w-[560px] sm:h-[560px] rounded-full bg-[#7c3aed]/20 blur-[140px] pointer-events-none opacity-0 transition-all duration-500 ease-out" style="bottom: 10%; right: 10%;"></div>
 
             <!-- Container Central dos 3 Estágios Narrativos -->
             <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-[84vh] flex items-center justify-center">
 
                 <!-- ESTÁGIO 1 (0% - 33%): 01. PORTFÓLIO & SOFTWARES AO VIVO -->
                 <div id="hero-stage-0" class="hero-stage is-active w-full !justify-end pb-12 pt-16 lg:!justify-center lg:pb-0">
-                    <div class="w-full lg:w-[56%] xl:w-[52%] lg:ml-auto text-left">
+                    <div class="w-full lg:w-[54%] xl:w-[49%] lg:ml-auto text-left">
                         <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#050609]/75 backdrop-blur-md border border-[#00f0ff]/35 font-mono text-[11px] sm:text-xs text-[#00f0ff] mb-4 shadow-lg shadow-[#00f0ff]/10">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             <span>ARIELL PUREZA • PORTFÓLIO OFICIAL</span>
                             <span class="text-slate-400">BSB • BR</span>
                         </div>
 
-                        <h1 class="font-display text-3xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.08] mb-4 drop-shadow-[0_4px_24px_rgba(5,6,9,0.9)]">
-                            Sistemas Sob Medida &amp; <span class="gradient-text-cyan">Posicionamento de Marca</span>.
+                        <h1 class="font-display text-3xl sm:text-5xl xl:text-[3.35rem] font-extrabold tracking-tight text-white leading-[1.06] mb-4 drop-shadow-[0_4px_24px_rgba(5,6,9,0.9)]">
+                            Sistemas &amp;<br><span class="gradient-text-cyan">Estratégia de Marca</span>.
                         </h1>
 
                         <p class="text-sm sm:text-base lg:text-lg text-slate-200 leading-relaxed mb-5 drop-shadow-[0_2px_12px_rgba(5,6,9,0.9)]">
@@ -361,7 +364,7 @@
                                     <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400 group-hover:text-[#00f0ff] shrink-0 transition-colors"></i>
                                 </a>
 
-                                <a href="https://ateliesync.vercel.app" target="_blank" rel="noopener noreferrer" class="glass-panel rounded-2xl px-3.5 py-3 border border-white/15 hover:border-[#00f0ff]/60 bg-[#0b0e15]/85 hover:bg-[#00f0ff]/10 transition-all group flex items-center justify-between gap-2">
+                                <a href="https://ariellpureza61.github.io/ateliesync-portfolio/" target="_blank" rel="noopener noreferrer" class="glass-panel rounded-2xl px-3.5 py-3 border border-white/15 hover:border-[#00f0ff]/60 bg-[#0b0e15]/85 hover:bg-[#00f0ff]/10 transition-all group flex items-center justify-between gap-2">
                                     <div class="min-w-0">
                                         <div class="flex items-center gap-1.5">
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
@@ -1152,7 +1155,7 @@
                 title: 'AteliêSync',
                 categories: ['ia', 'gestao'],
                 badge: 'SaaS IA WhatsApp & Agenda',
-                liveUrl: 'https://ateliesync.vercel.app',
+                liveUrl: 'https://ariellpureza61.github.io/ateliesync-portfolio/',
                 icon: 'bot',
                 accent: 'violet',
                 summary: 'Plataforma SaaS multi-tenant de atendimento no WhatsApp com IA, agenda inteligente e gestão de caixa em tempo real.',
@@ -1588,6 +1591,16 @@
             if (heroStageDimmer) {
                 heroStageDimmer.classList.toggle('bg-[#050609]/65', stageIndex > 0);
                 heroStageDimmer.classList.toggle('bg-[#050609]/0', stageIndex === 0);
+            }
+            if (canvas) {
+                canvas.classList.toggle('opacity-35', stageIndex > 0);
+                canvas.classList.toggle('opacity-0', stageIndex === 0);
+            }
+            if (orbCyan && orbViolet) {
+                orbCyan.classList.toggle('opacity-100', stageIndex > 0);
+                orbCyan.classList.toggle('opacity-0', stageIndex === 0);
+                orbViolet.classList.toggle('opacity-100', stageIndex > 0);
+                orbViolet.classList.toggle('opacity-0', stageIndex === 0);
             }
         }
 
